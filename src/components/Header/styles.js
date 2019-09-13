@@ -1,16 +1,6 @@
 import styled from 'styled-components';
 
-import { Navbar } from 'react-bootstrap';
-
-export const NavbarEdit = styled(Navbar)`
-  img {
-    max-width: 25px;
-    margin: 5px;
-  }
-`;
-
 export const Container = styled.div`
-  --background: cornflowerblue;
   padding: 0 30px;
 `;
 
@@ -33,9 +23,37 @@ export const Content = styled.div`
       border-right: 1px solid #eee;
     }
 
+    ul {
+      display: inline-flex;
+      color: #fff;
+
+      li {
+        & + li {
+          margin-left: 15px;
+        }
+      }
+    }
+
     a {
       font-weight: bold;
-      color: #7159c1;
+      font-size: 16px;
+      color: #006cf0;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        color: white;
+      }
+
+      svg {
+        margin-right: 5px;
+        max-height: 14px;
+      }
+    }
+
+    a.active {
+      color: white;
     }
 
     aside {
