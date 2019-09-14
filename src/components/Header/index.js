@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { FaHome, FaUser, FaSitemap, FaUsers, FaBook } from 'react-icons/fa';
@@ -7,6 +8,7 @@ import logo from '~/assets/phone-book.png';
 import { Container, Content, Profile } from './styles';
 
 export default function Header() {
+  const profile = useSelector(state => state.user.profile);
   const currentLocation = window.location.pathname;
 
   return (
@@ -30,7 +32,7 @@ export default function Header() {
                 className={currentLocation === '/profile' ? 'active' : ''}
               >
                 <FaUser size={10} />
-                Profile
+                Perfil
               </Link>
             </li>
             <li>
@@ -40,7 +42,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/dominios">
+              <Link to="/usuarios">
                 <FaUsers />
                 Usuários
               </Link>
@@ -57,12 +59,12 @@ export default function Header() {
         <aside>
           <Profile>
             <div>
-              <strong>Eduardo F Oliveira</strong>
+              <strong>{profile.nome}</strong>
               <Link to="/profile">Meu Perfil</Link>
             </div>
             <img
               src="https://api.adorable.io/avatars/50/abott@adorable.png"
-              alt="Eduardo"
+              alt={profile.nome}
             />
           </Profile>
         </aside>

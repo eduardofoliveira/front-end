@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select } from '@rocketseat/unform';
 import { useDispatch, useSelector } from 'react-redux';
 import api from '~/services/api';
 
+import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
 import { Container } from './styles';
@@ -74,6 +77,10 @@ export default function Profile() {
     };
 
     dispatch(updateProfileRequest(data));
+  }
+
+  function handleSignOut() {
+    dispatch(signOut());
   }
 
   return (
@@ -213,7 +220,9 @@ export default function Profile() {
         <button type="submit">Atualizar perfil</button>
       </Form>
 
-      <button type="button">Sair do Basix Contact</button>
+      <button type="button" onClick={handleSignOut}>
+        Sair do Basix Contact
+      </button>
     </Container>
   );
 }
