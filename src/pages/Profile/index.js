@@ -85,144 +85,151 @@ export default function Profile() {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <label htmlFor="ativo">
-          <input
-            type="checkbox"
-            checked={ativo}
-            onChange={e => setAtivo(e.target.checked)}
-            name="ativo"
-          />{' '}
-          Ativo
-        </label>
+      {!ativo ? (
+        <div className="carregando">
+          <h1>Carregando...</h1>
+        </div>
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor="ativo">
+            <input
+              type="checkbox"
+              checked={ativo}
+              onChange={e => setAtivo(e.target.checked)}
+              name="ativo"
+            />{' '}
+            Ativo
+          </label>
 
-        <Input
-          name="nome"
-          placeholder="Nome"
-          value={nome}
-          onChange={e => setNome(e.target.value)}
-        />
-        <Input
-          name="email"
-          placeholder="Seu endereço de e-email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <Input
-          name="user_basix"
-          placeholder="Usuário do PBX"
-          value={user_basix}
-          onChange={e => setUserBasix(e.target.value)}
-        />
-        <hr />
-        <Input type="password" name="senha" placeholder="Senha" />
-
-        <hr />
-        <label htmlFor="tipo" id="tech-label">
-          Tipo de usuário
-          <Select
-            id="tipo"
-            name="tipo"
-            options={options}
-            value={tipo}
-            onChange={e => setTipo(e.target.value)}
-            placeholder="Selecione uma opção"
+          <Input
+            name="nome"
+            placeholder="Nome"
+            value={nome}
+            onChange={e => setNome(e.target.value)}
           />
-        </label>
-
-        <label htmlFor="loginlogout" id="tech-label">
-          Login e Logout via Web
-          <Select
-            id="loginlogout"
-            name="loginlogout"
-            options={optionsLogin}
-            value={loginlogout}
-            onChange={e => setLoginlogout(e.target.value)}
-            placeholder="Selecione uma opção"
+          <Input
+            name="email"
+            placeholder="Seu endereço de e-email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
-        </label>
-
-        <label htmlFor="gravacao" id="tech-label">
-          Buscar gravação da chamada no log
-          <Select
-            id="gravacao"
-            name="gravacao"
-            options={optionsGravacao}
-            value={gravacao}
-            onChange={e => setGravacao(e.target.value)}
-            placeholder="Selecione uma opção"
+          <Input
+            name="user_basix"
+            placeholder="Usuário do PBX"
+            value={user_basix}
+            onChange={e => setUserBasix(e.target.value)}
           />
-        </label>
+          <hr />
+          <Input type="password" name="senha" placeholder="Senha" />
 
-        <textarea
-          name="descricao"
-          placeholder="descricao..."
-          value={descricao}
-          onChange={e => setDescricao(e.target.value)}
-        />
+          <hr />
+          <label htmlFor="tipo" id="tech-label">
+            Tipo de usuário
+            <Select
+              id="tipo"
+              name="tipo"
+              options={options}
+              value={tipo}
+              onChange={e => setTipo(e.target.value)}
+              placeholder="Selecione uma opção"
+            />
+          </label>
 
-        <hr />
+          <label htmlFor="loginlogout" id="tech-label">
+            Login e Logout via Web
+            <Select
+              id="loginlogout"
+              name="loginlogout"
+              options={optionsLogin}
+              value={loginlogout}
+              onChange={e => setLoginlogout(e.target.value)}
+              placeholder="Selecione uma opção"
+            />
+          </label>
 
-        <label htmlFor="ativo_dendron">
-          <input
-            type="checkbox"
-            name="ativo_dendron"
-            id="ativo_dendron"
-            checked={ativo_dendron}
-            onChange={e => setAtivoDendron(e.target.checked)}
-          />{' '}
-          Ativo Dendron
-        </label>
-        <Input
-          name="dendron_operador"
-          placeholder="Dendron Operador"
-          value={dendron_operador}
-          onChange={e => setDendronOperador(e.target.value)}
-        />
-        <Input
-          name="dendron_token"
-          placeholder="Dendron Token"
-          value={dendron_token}
-          onChange={e => setDendronToken(e.target.value)}
-        />
-        <hr />
+          <label htmlFor="gravacao" id="tech-label">
+            Buscar gravação da chamada no log
+            <Select
+              id="gravacao"
+              name="gravacao"
+              options={optionsGravacao}
+              value={gravacao}
+              onChange={e => setGravacao(e.target.value)}
+              placeholder="Selecione uma opção"
+            />
+          </label>
 
-        <label htmlFor="ativo_zendesk">
-          <input
-            type="checkbox"
-            name="ativo_zendesk"
-            id="ativo_zendesk"
-            checked={ativo_zendesk}
-            onChange={e => setAtivoZendesk(e.target.checked)}
-          />{' '}
-          Ativo Zendesk
-        </label>
-        <Input
-          name="email_zendesk"
-          placeholder="Email Zendesk"
-          value={email_zendesk}
-          onChange={e => setEmailZendesk(e.target.value)}
-        />
-        <Input
-          name="token_zendesk"
-          placeholder="Zendesk Token"
-          value={token_zendesk}
-          onChange={e => setTokenZendesk(e.target.value)}
-        />
-        <Input
-          name="sub_dominio_zendesk"
-          placeholder="Sub Dominio"
-          value={sub_dominio_zendesk}
-          onChange={e => setSubDominioZendesk(e.target.value)}
-        />
-        <hr />
+          <textarea
+            name="descricao"
+            placeholder="descricao..."
+            value={descricao}
+            onChange={e => setDescricao(e.target.value)}
+          />
 
-        <button type="submit">Atualizar perfil</button>
-      </Form>
+          <hr />
 
-      <button type="button" onClick={handleSignOut}>
-        Sair do Basix Contact
-      </button>
+          <label htmlFor="ativo_dendron">
+            <input
+              type="checkbox"
+              name="ativo_dendron"
+              id="ativo_dendron"
+              checked={ativo_dendron}
+              onChange={e => setAtivoDendron(e.target.checked)}
+            />{' '}
+            Ativo Dendron
+          </label>
+          <Input
+            name="dendron_operador"
+            placeholder="Dendron Operador"
+            value={dendron_operador}
+            onChange={e => setDendronOperador(e.target.value)}
+          />
+          <Input
+            name="dendron_token"
+            placeholder="Dendron Token"
+            value={dendron_token}
+            onChange={e => setDendronToken(e.target.value)}
+          />
+          <hr />
+
+          <label htmlFor="ativo_zendesk">
+            <input
+              type="checkbox"
+              name="ativo_zendesk"
+              id="ativo_zendesk"
+              checked={ativo_zendesk}
+              onChange={e => setAtivoZendesk(e.target.checked)}
+            />{' '}
+            Ativo Zendesk
+          </label>
+          <Input
+            name="email_zendesk"
+            placeholder="Email Zendesk"
+            value={email_zendesk}
+            onChange={e => setEmailZendesk(e.target.value)}
+          />
+          <Input
+            name="token_zendesk"
+            placeholder="Zendesk Token"
+            value={token_zendesk}
+            onChange={e => setTokenZendesk(e.target.value)}
+          />
+          <Input
+            name="sub_dominio_zendesk"
+            placeholder="Sub Dominio"
+            value={sub_dominio_zendesk}
+            onChange={e => setSubDominioZendesk(e.target.value)}
+          />
+          <hr />
+
+          <button type="submit">Atualizar perfil</button>
+        </Form>
+      )}
+      {ativo && (
+        <button type="button" onClick={handleSignOut}>
+          Sair do Basix Contact
+        </button>
+      )}
     </Container>
   );
 }

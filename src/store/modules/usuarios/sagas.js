@@ -3,7 +3,12 @@ import { toast } from 'react-toastify';
 
 import api from '~/services/api';
 
-import { listUsersSuccess, listUsersFailure } from './actions';
+import {
+  listUsersSuccess,
+  listUsersFailure,
+  getUserDetailSuccess,
+  getUserDetailFailure,
+} from './actions';
 
 export function* listUsers({ payload }) {
   try {
@@ -19,4 +24,21 @@ export function* listUsers({ payload }) {
   }
 }
 
-export default all([takeLatest('@usuarios/LIST_USERS_REQUEST', listUsers)]);
+export function* getUserDetails({ payload }) {
+  try {
+    const { id, id_dominio } = payload.data;
+
+    const response = yield call(api.get, `users/${id_dominio}/${id}`);
+    const user = response.data;
+
+    yield put(getUserDetailSuccess(user));
+  } catch (error) {
+    toast.error('Erro ao buscar dados do usuário !');
+    yield put(getUserDetailFailure());
+  }
+}
+
+export default all([
+  takeLatest('@usuarios/LIST_USERS_REQUEST', listUsers),
+  takeLatest('@usuarios/GET_USER_DETAIL_REQUEST', getUserDetails),
+]);

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { FaHome, FaUser, FaSitemap, FaUsers, FaBook } from 'react-icons/fa';
+import { FaHome, FaSitemap, FaUsers, FaBook } from 'react-icons/fa';
 import logo from '~/assets/phone-book.png';
 
 import { Container, Content, Profile } from './styles';
@@ -26,21 +26,14 @@ export default function Header() {
                 Dashboard
               </Link>
             </li>
-            <li>
-              <Link
-                to="/profile"
-                className={currentLocation === '/profile' ? 'active' : ''}
-              >
-                <FaUser size={10} />
-                Perfil
-              </Link>
-            </li>
-            <li>
-              <Link to="/dominios">
-                <FaSitemap />
-                Dominíos
-              </Link>
-            </li>
+            {profile.tipo === 3 && (
+              <li>
+                <Link to="/dominios">
+                  <FaSitemap />
+                  Dominíos
+                </Link>
+              </li>
+            )}
             <li>
               <Link to="/usuarios">
                 <FaUsers />
