@@ -4,10 +4,12 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Input, Select } from '@rocketseat/unform';
+import { FaSave } from 'react-icons/fa';
 
 import {
   getUserDetailRequest,
   HideFormRequest,
+  userUpdateRequest,
 } from '~/store/modules/usuarios/actions';
 
 import { Container } from './styles';
@@ -43,8 +45,19 @@ export default function Usuarios_Add({ match }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(data) {
+    const refAtivo = document.getElementById('ativo');
+    const refAtivoDendron = document.getElementById('ativo_dendron');
+    const refAtivoZendesk = document.getElementById('ativo_zendesk');
+
+    const user = Object.assign(data, {
+      [refAtivo.name]: refAtivo.checked ? 1 : 0,
+      [refAtivoDendron.name]: refAtivoDendron.checked ? 1 : 0,
+      [refAtivoZendesk.name]: refAtivoZendesk.checked ? 1 : 0,
+    });
+
+    // console.log(data);
+    dispatch(userUpdateRequest({ user, id, id_dominio }));
   }
 
   return (
@@ -59,6 +72,7 @@ export default function Usuarios_Add({ match }) {
             <Input
               type="checkbox"
               name="ativo"
+              id="ativo"
               defaultChecked={usuario.ativo}
             />{' '}
             Ativo
@@ -137,6 +151,10 @@ export default function Usuarios_Add({ match }) {
           <Input name="sub_dominio_zendesk" placeholder="Sub Dominio" />
 
           <hr />
+
+          <button type="submit">
+            <FaSave /> Atualizar Usuário
+          </button>
         </Form>
       )}
     </Container>

@@ -1,9 +1,38 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   padding: 15px;
   display: flex;
   flex-direction: column;
+
+  div {
+    button {
+      margin: 5px 0 0;
+      height: 44px;
+      -width: 120px;
+      padding: 0px 15px;
+      background: #3b9eff;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 4px 4px #999;
+
+      &:hover {
+        background: ${darken(0.1, '#3b9eff')};
+      }
+
+      &:active {
+        background-color: ${darken(0.2, '#3b9eff')};
+        box-shadow: 2px 2px #666;
+        border: 1px solid #fff;
+        transform: translateY(1px);
+      }
+    }
+  }
 `;
 
 export const Titulo = styled.h1`

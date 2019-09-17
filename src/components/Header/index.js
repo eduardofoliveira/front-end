@@ -35,7 +35,12 @@ export default function Header() {
               </li>
             )}
             <li>
-              <Link to="/usuarios">
+              <Link
+                to="/usuarios"
+                className={
+                  currentLocation.indexOf('/usuarios') === 0 ? 'active' : ''
+                }
+              >
                 <FaUsers />
                 Usuários
               </Link>

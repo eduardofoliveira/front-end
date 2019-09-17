@@ -45,6 +45,29 @@ export function getUserDetailFailure() {
 }
 
 /**
+ * Atualização de usuário
+ */
+export function userUpdateRequest(data) {
+  return {
+    type: '@usuarios/UPDATE_USER_REQUEST',
+    payload: { data },
+  };
+}
+
+export function userUpdatelSuccess(user) {
+  return {
+    type: '@usuarios/UPDATE_USER_SUCCESS',
+    payload: user,
+  };
+}
+
+export function userUpdateFailure() {
+  return {
+    type: '@usuarios/UPDATE_USER_FAILURE',
+  };
+}
+
+/**
  * Hide Form
  */
 export function HideFormRequest() {

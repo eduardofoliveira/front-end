@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select } from '@rocketseat/unform';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaSave, FaDoorOpen } from 'react-icons/fa';
+
 import api from '~/services/api';
 
 import { signOut } from '~/store/modules/auth/actions';
@@ -44,6 +46,7 @@ export default function Profile() {
   const [email_zendesk, setEmailZendesk] = useState('');
   const [token_zendesk, setTokenZendesk] = useState('');
   const [sub_dominio_zendesk, setSubDominioZendesk] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const executar = async () => {
@@ -63,6 +66,7 @@ export default function Profile() {
       setEmailZendesk(response.data.email_zendesk);
       setTokenZendesk(response.data.token_zendesk);
       setSubDominioZendesk(response.data.sub_dominio_zendesk);
+      setLoading(false);
     };
     executar();
   }, [profile.id]);
@@ -85,7 +89,7 @@ export default function Profile() {
 
   return (
     <Container>
-      {!ativo ? (
+      {loading ? (
         <div className="carregando">
           <h1>Carregando...</h1>
         </div>
@@ -97,6 +101,7 @@ export default function Profile() {
               checked={ativo}
               onChange={e => setAtivo(e.target.checked)}
               name="ativo"
+              id="ativo"
             />{' '}
             Ativo
           </label>
@@ -222,12 +227,14 @@ export default function Profile() {
           />
           <hr />
 
-          <button type="submit">Atualizar perfil</button>
+          <button type="submit">
+            <FaSave /> Atualizar perfil
+          </button>
         </Form>
       )}
-      {ativo && (
+      {!loading && (
         <button type="button" onClick={handleSignOut}>
-          Sair do Basix Contact
+          <FaDoorOpen /> Sair do Basix Contact
         </button>
       )}
     </Container>

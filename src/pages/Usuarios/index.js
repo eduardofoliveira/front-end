@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { FaPlus } from 'react-icons/fa';
 
 import { listUsersRequest } from '~/store/modules/usuarios/actions';
 
@@ -19,6 +20,11 @@ export default function Usuarios() {
   return (
     <Container>
       <Titulo>Usuários</Titulo>
+      <div>
+        <button type="button">
+          <FaPlus /> Adicionar
+        </button>
+      </div>
       <Table>
         <thead>
           <tr>

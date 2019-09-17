@@ -114,10 +114,18 @@ export const Container = styled.div`
       border: 0;
       border-radius: 4px;
       font-size: 16px;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      box-shadow: 4px 4px #999;
 
       &:hover {
         background: ${darken(0.1, '#3b9eff')};
+      }
+
+      &:active {
+        background-color: ${darken(0.2, '#3b9eff')};
+        box-shadow: 2px 2px #666;
+        border: 1px solid #fff;
+        transform: translateY(1px);
       }
     }
   }
