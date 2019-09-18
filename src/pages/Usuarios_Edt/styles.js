@@ -2,16 +2,66 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
+  padding: 15px;
 
-  div.carregando {
+  div {
     display: flex;
-    justify-content: center;
-    justify-items: center;
+    justify-content: space-between;
+
+    a {
+      margin: 5px 0 0;
+      height: 44px;
+      padding: 12px 15px;
+      background: #3b9eff;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 4px 4px #999;
+
+      &:hover {
+        background: ${darken(0.1, '#3b9eff')};
+      }
+
+      &:active {
+        background-color: ${darken(0.2, '#3b9eff')};
+        box-shadow: 2px 2px #666;
+        border: 1px solid #fff;
+        transform: translateY(1px);
+      }
+    }
+
+    button {
+      margin: 5px 0 0;
+      height: 44px;
+      padding: 10px 15px;
+      background: #f64c75;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 4px 4px #999;
+
+      &:hover {
+        background: ${darken(0.1, '#f64c75')};
+      }
+
+      &:active {
+        background-color: ${darken(0.2, '#f64c75')};
+        box-shadow: 2px 2px #666;
+        border: 1px solid #fff;
+        transform: translateY(1px);
+      }
+    }
   }
 
   form {
+    max-width: 600px;
+    margin: 50px auto;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
@@ -146,4 +196,9 @@ export const Container = styled.div`
       background: ${darken(0.1, '#f64c75')};
     }
   }
+`;
+
+export const Titulo = styled.h1`
+  color: #fff;
+  text-align: center;
 `;

@@ -21,9 +21,9 @@ export default function Usuarios() {
     <Container>
       <Titulo>Usuários</Titulo>
       <div>
-        <button type="button">
+        <Link to="/usuarios/add">
           <FaPlus /> Adicionar
-        </button>
+        </Link>
       </div>
       <Table>
         <thead>

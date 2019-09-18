@@ -40,4 +40,11 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  div.carregando {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    color: #fff;
+  }
 `;

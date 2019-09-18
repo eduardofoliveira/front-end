@@ -11,6 +11,8 @@ import {
   getUserDetailFailure,
   userUpdatelSuccess,
   userUpdateFailure,
+  addUserSuccess,
+  addUserFailure,
 } from './actions';
 
 export function* listUsers({ payload }) {
@@ -60,8 +62,24 @@ export function* updateUser({ payload }) {
   }
 }
 
+export function* addUser({ payload }) {
+  try {
+    const { user, id_dominio } = payload;
+
+    const response = yield call(api.post, `users/${id_dominio}`, user);
+
+    yield put(addUserSuccess(response.data));
+    toast.success('Usuário adicionado com sucesso !');
+    history.push('/usuarios');
+  } catch (error) {
+    toast.error('Erro ao adicionar usuário !');
+    yield put(addUserFailure());
+  }
+}
+
 export default all([
   takeLatest('@usuarios/LIST_USERS_REQUEST', listUsers),
   takeLatest('@usuarios/GET_USER_DETAIL_REQUEST', getUserDetails),
   takeLatest('@usuarios/UPDATE_USER_REQUEST', updateUser),
+  takeLatest('@usuarios/ADD_USER_REQUEST', addUser),
 ]);

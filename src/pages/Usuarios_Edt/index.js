@@ -4,7 +4,10 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Input, Select } from '@rocketseat/unform';
-import { FaSave } from 'react-icons/fa';
+import { FaSave, FaBackward, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import {
   getUserDetailRequest,
@@ -12,7 +15,7 @@ import {
   userUpdateRequest,
 } from '~/store/modules/usuarios/actions';
 
-import { Container } from './styles';
+import { Container, Titulo } from './styles';
 
 const options = [
   { id: '1', title: 'Comum' },
@@ -45,6 +48,25 @@ export default function Usuarios_Add({ match }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function handleDelete() {
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      title: `Apagar usuário ${usuario.nome}`,
+      text: 'Tem certeza que deseja deletar ?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+    }).then(result => {
+      if (result.value) {
+        return MySwal.fire(<p>Deletando... {usuario.nome}</p>);
+      }
+      return false;
+    });
+  }
+
   function handleSubmit(data) {
     const refAtivo = document.getElementById('ativo');
     const refAtivoDendron = document.getElementById('ativo_dendron');
@@ -62,6 +84,16 @@ export default function Usuarios_Add({ match }) {
 
   return (
     <Container>
+      <Titulo>Dados do usuário</Titulo>
+      <div>
+        <Link to="/usuarios">
+          <FaBackward /> Voltar
+        </Link>
+
+        <button type="button" onClick={handleDelete}>
+          <FaTimes /> Deletar
+        </button>
+      </div>
       {loading ? (
         <div className="carregando">
           <h1>Carregando...</h1>

@@ -68,6 +68,29 @@ export function userUpdateFailure() {
 }
 
 /**
+ * Adição de usuário
+ */
+export function addUserRequest(data) {
+  return {
+    type: '@usuarios/ADD_USER_REQUEST',
+    payload: data,
+  };
+}
+
+export function addUserSuccess(user) {
+  return {
+    type: '@usuarios/ADD_USER_SUCCESS',
+    payload: user,
+  };
+}
+
+export function addUserFailure() {
+  return {
+    type: '@usuarios/ADD_USER_FAILURE',
+  };
+}
+
+/**
  * Hide Form
  */
 export function HideFormRequest() {

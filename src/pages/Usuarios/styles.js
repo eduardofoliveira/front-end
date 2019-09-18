@@ -7,11 +7,10 @@ export const Container = styled.div`
   flex-direction: column;
 
   div {
-    button {
+    a {
       margin: 5px 0 0;
       height: 44px;
-      -width: 120px;
-      padding: 0px 15px;
+      padding: 10px 15px;
       background: #3b9eff;
       font-weight: bold;
       color: #fff;
@@ -36,7 +35,7 @@ export const Container = styled.div`
 `;
 
 export const Titulo = styled.h1`
-  color: #333;
+  color: #fff;
   text-align: center;
 `;
 
