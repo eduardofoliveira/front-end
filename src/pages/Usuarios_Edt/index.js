@@ -13,6 +13,7 @@ import {
   getUserDetailRequest,
   HideFormRequest,
   userUpdateRequest,
+  deleteUserRequest,
 } from '~/store/modules/usuarios/actions';
 
 import { Container, Titulo } from './styles';
@@ -61,7 +62,8 @@ export default function Usuarios_Add({ match }) {
       cancelButtonText: 'Cancelar',
     }).then(result => {
       if (result.value) {
-        return MySwal.fire(<p>Deletando... {usuario.nome}</p>);
+        dispatch(deleteUserRequest({ id, id_dominio }));
+        // return MySwal.fire(<p>Deletando... {usuario.nome}</p>);
       }
       return false;
     });

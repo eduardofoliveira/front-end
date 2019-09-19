@@ -91,6 +91,28 @@ export function addUserFailure() {
 }
 
 /**
+ * Deletar usuário
+ */
+export function deleteUserRequest(data) {
+  return {
+    type: '@usuarios/DELETE_USER_REQUEST',
+    payload: { data },
+  };
+}
+
+export function deleteUserSuccess() {
+  return {
+    type: '@usuarios/DELETE_USER_SUCCESS',
+  };
+}
+
+export function deleteUserFailure() {
+  return {
+    type: '@usuarios/DELETE_USER_FAILURE',
+  };
+}
+
+/**
  * Hide Form
  */
 export function HideFormRequest() {

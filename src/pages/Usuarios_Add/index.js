@@ -39,6 +39,12 @@ const schema = Yup.object().shape({
   tipo: Yup.string().required('Selecione um tipo de usuário'),
   loginlogout: Yup.string().required('Selecione uma opção'),
   gravacao: Yup.string().required('Selecione uma opção'),
+  descricao: Yup.string(),
+  dendron_operador: Yup.string(),
+  dendron_token: Yup.string(),
+  email_zendesk: Yup.string(),
+  token_zendesk: Yup.string(),
+  sub_dominio_zendesk: Yup.string(),
 });
 
 export default function Usuarios_Add() {

@@ -13,6 +13,8 @@ import {
   userUpdateFailure,
   addUserSuccess,
   addUserFailure,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from './actions';
 
 export function* listUsers({ payload }) {
@@ -77,9 +79,25 @@ export function* addUser({ payload }) {
   }
 }
 
+export function* deleteUser({ payload }) {
+  try {
+    const { id, id_dominio } = payload.data;
+
+    yield call(api.delete, `users/${id_dominio}/${id}`);
+
+    yield put(deleteUserSuccess());
+    toast.success('Usuário deletado com sucesso !');
+    history.push('/usuarios');
+  } catch (error) {
+    toast.error('Erro ao deletar usuário !');
+    yield put(deleteUserFailure());
+  }
+}
+
 export default all([
   takeLatest('@usuarios/LIST_USERS_REQUEST', listUsers),
   takeLatest('@usuarios/GET_USER_DETAIL_REQUEST', getUserDetails),
   takeLatest('@usuarios/UPDATE_USER_REQUEST', updateUser),
   takeLatest('@usuarios/ADD_USER_REQUEST', addUser),
+  takeLatest('@usuarios/DELETE_USER_REQUEST', deleteUser),
 ]);
