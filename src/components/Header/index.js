@@ -46,7 +46,12 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/dominios">
+              <Link
+                to="/chamados"
+                className={
+                  currentLocation.indexOf('/chamados') === 0 ? 'active' : ''
+                }
+              >
                 <FaBook />
                 Chamados
               </Link>
