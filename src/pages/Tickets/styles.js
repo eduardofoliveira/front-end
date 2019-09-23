@@ -54,6 +54,7 @@ export const ListTickets = styled.div`
   margin-right: 10px;
   display: flex;
   flex-wrap: wrap;
+  flex: 1;
 `;
 
 export const Ticket = styled.div`

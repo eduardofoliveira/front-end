@@ -1,34 +1,114 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  changeTicketsTypeRequest,
+  showTicketsRequest,
+} from '~/store/modules/tickets/actions';
 
 import { Container, Menu, ListTickets, Ticket } from './styles';
 
 export default function Tickets() {
+  const dispatch = useDispatch();
+  const { visualizacao, tickets } = useSelector(state => state.tickets);
+
+  useEffect(() => {
+    dispatch(showTicketsRequest());
+  }, [dispatch, visualizacao]);
+
   return (
     <Container>
       <Menu>
         <p>Visualizações</p>
-        <li className="ativo">
-          <button type="button">Todos</button>
+        <li className={visualizacao === 'todos' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('todos'))}
+          >
+            Todos
+          </button>
         </li>
-        <li>
-          <button type="button">Abertos</button>
+        <li className={visualizacao === 'abertos' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('abertos'))}
+          >
+            Abertos
+          </button>
         </li>
-        <li>
-          <button type="button">Fechados</button>
+        <li className={visualizacao === 'fechados' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('fechados'))}
+          >
+            Fechados
+          </button>
         </li>
-        <li>
-          <button type="button">Pendentes</button>
+        <li className={visualizacao === 'pendentes' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('pendentes'))}
+          >
+            Pendentes
+          </button>
         </li>
-        <li>
-          <button type="button">Meus Tickets</button>
+        <li className={visualizacao === 'meus_tickets' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('meus_tickets'))}
+          >
+            Meus Tickets
+          </button>
         </li>
-        <li>
-          <button type="button">Deletados</button>
+        <li className={visualizacao === 'deletados' ? 'ativo' : ''}>
+          <button
+            type="button"
+            onClick={() => dispatch(changeTicketsTypeRequest('deletados'))}
+          >
+            Deletados
+          </button>
         </li>
       </Menu>
       <ListTickets>
-        <Ticket>
+        {tickets.rows.map(ticket => {
+          return (
+            <Ticket key={ticket.id}>
+              <Link to={`chamado/${ticket.id}`}>
+                <div
+                  className={`title ${
+                    ticket.aberto === 1 ? 'aberto' : 'fechado'
+                  }`}
+                >
+                  <div>
+                    #<span>{ticket.id}</span>
+                  </div>
+                  <div>{ticket.aberto === 1 ? 'aberto' : 'fechado'}</div>
+                </div>
+              </Link>
+
+              <div className="body">
+                <div className="identify">
+                  <div>
+                    From:
+                    <p>{ticket.de}</p>
+                  </div>
+                  <div>
+                    To:
+                    <p>{ticket.para}</p>
+                  </div>
+                  <div>
+                    Usuário:
+                    <p>{ticket.usuario.nome}</p>
+                  </div>
+                </div>
+                <p>{ticket.comentario}</p>
+              </div>
+            </Ticket>
+          );
+        })}
+
+        {/* <Ticket>
           <Link to="chamado/451235">
             <div className="title aberto">
               <div>
@@ -113,7 +193,7 @@ export default function Tickets() {
             </div>
             <p>dgkljfdlgkjfdklgfd</p>
           </div>
-        </Ticket>
+        </Ticket> */}
       </ListTickets>
     </Container>
   );
