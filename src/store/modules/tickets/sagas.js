@@ -7,6 +7,8 @@ import {
   changeTicketsTypeFailure,
   showTicketsSuccess,
   showTicketsFailure,
+  changeTicketsUserSuccess,
+  changeTicketsUserFailure,
 } from './actions';
 
 export function* alterarVisualizacao({ payload }) {
@@ -19,13 +21,21 @@ export function* alterarVisualizacao({ payload }) {
   }
 }
 
-export function* listTickets() {
-  const visualizacao = yield select(state => state.tickets.visualizacao);
+export function* listTickets({ payload }) {
+  const { proto, de, para } = payload.data;
+
+  const { visualizacao, visualizacaoUser } = yield select(
+    state => state.tickets
+  );
 
   try {
     const response = yield call(api.get, 'tickets', {
       params: {
         visualizacao,
+        visualizacaoUser,
+        proto,
+        de,
+        para,
       },
     });
 
@@ -36,7 +46,18 @@ export function* listTickets() {
   }
 }
 
+export function* alterarVisualizacaoUser({ payload }) {
+  const visualizacaoUser = payload.data;
+
+  try {
+    yield put(changeTicketsUserSuccess(visualizacaoUser));
+  } catch (error) {
+    yield put(changeTicketsUserFailure());
+  }
+}
+
 export default all([
   takeLatest('@tickets/CHANGE_TICKETS_TYPE_REQUEST', alterarVisualizacao),
   takeLatest('@tickets/LIST_TICKETS_REQUEST', listTickets),
+  takeLatest('@tickets/CHANGE_TICKETS_USER_REQUEST', alterarVisualizacaoUser),
 ]);

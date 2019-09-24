@@ -1,100 +1,168 @@
-import React, { useEffect } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   changeTicketsTypeRequest,
   showTicketsRequest,
+  changeTicketsUserRequest,
 } from '~/store/modules/tickets/actions';
 
 import { Container, Menu, ListTickets, Ticket } from './styles';
 
+const statusString = ['', 'aberto', 'fechado', 'pendente'];
+
 export default function Tickets() {
   const dispatch = useDispatch();
-  const { visualizacao, tickets } = useSelector(state => state.tickets);
+  const [proto, setProto] = useState('');
+  const [de, setDe] = useState('');
+  const [para, setPara] = useState('');
+
+  const { visualizacao, visualizacaoUser, tickets } = useSelector(
+    state => state.tickets
+  );
+  const { usuarios } = useSelector(state => state.usuarios);
 
   useEffect(() => {
-    dispatch(showTicketsRequest());
-  }, [dispatch, visualizacao]);
+    dispatch(showTicketsRequest({ proto, de, para }));
+  }, [de, dispatch, para, proto, visualizacao, visualizacaoUser]);
 
   return (
     <Container>
-      <Menu>
-        <p>Visualizações</p>
-        <li className={visualizacao === 'todos' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('todos'))}
-          >
-            Todos
-          </button>
-        </li>
-        <li className={visualizacao === 'abertos' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('abertos'))}
-          >
-            Abertos
-          </button>
-        </li>
-        <li className={visualizacao === 'fechados' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('fechados'))}
-          >
-            Fechados
-          </button>
-        </li>
-        <li className={visualizacao === 'pendentes' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('pendentes'))}
-          >
-            Pendentes
-          </button>
-        </li>
-        <li className={visualizacao === 'meus_tickets' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('meus_tickets'))}
-          >
-            Meus Tickets
-          </button>
-        </li>
-        <li className={visualizacao === 'deletados' ? 'ativo' : ''}>
-          <button
-            type="button"
-            onClick={() => dispatch(changeTicketsTypeRequest('deletados'))}
-          >
-            Deletados
-          </button>
-        </li>
-      </Menu>
+      <div>
+        <Menu>
+          <p>Visualizações</p>
+          <li className={visualizacao === 'todos' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('todos'))}
+            >
+              Todos
+            </button>
+          </li>
+          <li className={visualizacao === 'abertos' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('abertos'))}
+            >
+              Abertos
+            </button>
+          </li>
+          <li className={visualizacao === 'fechados' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('fechados'))}
+            >
+              Fechados
+            </button>
+          </li>
+          <li className={visualizacao === 'pendentes' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('pendentes'))}
+            >
+              Pendentes
+            </button>
+          </li>
+          <li className={visualizacao === 'meus_tickets' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('meus_tickets'))}
+            >
+              Meus Tickets
+            </button>
+          </li>
+          <li className={visualizacao === 'deletados' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsTypeRequest('deletados'))}
+            >
+              Deletados
+            </button>
+          </li>
+        </Menu>
+        <Menu>
+          <p>Usuários</p>
+          <li className={visualizacaoUser === 'todos' ? 'ativo' : ''}>
+            <button
+              type="button"
+              onClick={() => dispatch(changeTicketsUserRequest('todos'))}
+            >
+              Todos
+            </button>
+          </li>
+          {usuarios.map(item => {
+            return (
+              <li
+                key={item.id}
+                className={visualizacaoUser === item.id ? 'ativo' : ''}
+              >
+                <button
+                  type="button"
+                  onClick={() => dispatch(changeTicketsUserRequest(item.id))}
+                >
+                  {item.nome}
+                </button>
+              </li>
+            );
+          })}
+        </Menu>
+        <div className="Search_Control">
+          <label htmlFor="protocolo">Protocolo</label>
+          <input
+            id="protocolo"
+            type="text"
+            value={proto}
+            onChange={e => setProto(e.target.value)}
+          />
+        </div>
+        <div className="Search_Control">
+          <label htmlFor="de">De</label>
+          <input
+            id="de"
+            type="text"
+            value={de}
+            onChange={e => setDe(e.target.value)}
+          />
+        </div>
+        <div className="Search_Control">
+          <label htmlFor="para">Para</label>
+          <input
+            id="para"
+            type="text"
+            value={para}
+            onChange={e => setPara(e.target.value)}
+          />
+        </div>
+      </div>
+
       <ListTickets>
         {tickets.rows.map(ticket => {
+          if (ticket.aberto === 0) {
+            ticket.aberto = 2;
+          }
+
           return (
             <Ticket key={ticket.id}>
               <Link to={`chamado/${ticket.id}`}>
-                <div
-                  className={`title ${
-                    ticket.aberto === 1 ? 'aberto' : 'fechado'
-                  }`}
-                >
+                <div className={`title ${statusString[ticket.aberto]}`}>
                   <div>
                     #<span>{ticket.id}</span>
                   </div>
-                  <div>{ticket.aberto === 1 ? 'aberto' : 'fechado'}</div>
+                  <div>{statusString[ticket.aberto]}</div>
                 </div>
               </Link>
 
               <div className="body">
                 <div className="identify">
                   <div>
-                    From:
+                    Originador:
                     <p>{ticket.de}</p>
                   </div>
                   <div>
-                    To:
+                    Destino:
                     <p>{ticket.para}</p>
                   </div>
                   <div>

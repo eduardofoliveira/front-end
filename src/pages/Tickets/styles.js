@@ -3,6 +3,23 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
+
+  div.Search_Control {
+    label {
+      display: block;
+      text-align: center;
+    }
+    input {
+      width: 200px;
+      margin-left: 10px;
+      margin-right: 0px;
+      border: 0;
+      padding: 5px;
+      border-radius: 4px;
+      box-shadow: 3px 3px #999;
+      margin-bottom: 10px;
+    }
+  }
 `;
 
 export const Menu = styled.ul`
@@ -88,7 +105,7 @@ export const Ticket = styled.div`
       padding: 0px 5px;
       border-radius: 4px;
       line-height: 32px;
-      font-size: 28px;
+      font-size: 18px;
       text-transform: uppercase;
     }
   }

@@ -24,10 +24,10 @@ export function changeTicketsTypeFailure() {
 /**
  * ListaTickets
  */
-export function showTicketsRequest() {
+export function showTicketsRequest(data) {
   return {
     type: '@tickets/LIST_TICKETS_REQUEST',
-    payload: {},
+    payload: { data },
   };
 }
 
@@ -41,5 +41,28 @@ export function showTicketsSuccess(tickets) {
 export function showTicketsFailure() {
   return {
     type: '@tickets/LIST_TICKETS_FAILURE',
+  };
+}
+
+/**
+ * Alterar Usuario
+ */
+export function changeTicketsUserRequest(data) {
+  return {
+    type: '@tickets/CHANGE_TICKETS_USER_REQUEST',
+    payload: { data },
+  };
+}
+
+export function changeTicketsUserSuccess(visualizacaoUser) {
+  return {
+    type: '@tickets/CHANGE_TICKETS_USER_SUCCESS',
+    payload: { visualizacaoUser },
+  };
+}
+
+export function changeTicketsUserFailure() {
+  return {
+    type: '@tickets/CHANGE_TICKETS_USER_FAILURE',
   };
 }
