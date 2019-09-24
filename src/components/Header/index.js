@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { FaHome, FaSitemap, FaUsers, FaBook } from 'react-icons/fa';
+import { FaHome, FaSitemap, FaUsers, FaBook, FaThList } from 'react-icons/fa';
 import logo from '~/assets/phone-book.png';
 
 import { Container, Content, Profile } from './styles';
@@ -49,11 +49,22 @@ export default function Header() {
               <Link
                 to="/chamados"
                 className={
-                  currentLocation.indexOf('/chamados') === 0 ? 'active' : ''
+                  currentLocation.indexOf('/chamado') === 0 ? 'active' : ''
                 }
               >
                 <FaBook />
                 Chamados
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/contatos"
+                className={
+                  currentLocation.indexOf('/contato') === 0 ? 'active' : ''
+                }
+              >
+                <FaThList />
+                Contatos
               </Link>
             </li>
           </ul>

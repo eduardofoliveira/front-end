@@ -10,6 +10,7 @@ import UsuarioAdd from '../pages/Usuarios_Add';
 import UsuarioEdt from '../pages/Usuarios_Edt';
 import Chamados from '../pages/Tickets';
 import Chamado from '../pages/Ticket';
+import Contatos from '../pages/Contatos';
 
 export default function Routes() {
   return (
@@ -23,6 +24,7 @@ export default function Routes() {
       <Route path="/usuarios/:id" component={UsuarioEdt} isPrivate />
       <Route path="/chamados" component={Chamados} isPrivate />
       <Route path="/chamado/:id" component={Chamado} isPrivate />
+      <Route path="/contatos" component={Contatos} isPrivate />
     </Switch>
   );
 }
