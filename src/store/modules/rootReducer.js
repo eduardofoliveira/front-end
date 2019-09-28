@@ -5,6 +5,7 @@ import user from './user/reducer';
 import usuarios from './usuarios/reducer';
 import tickets from './tickets/reducer';
 import ticket from './ticket/reducer';
+import contatos from './contatos/reducer';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   usuarios,
   tickets,
   ticket,
+  contatos,
 });
