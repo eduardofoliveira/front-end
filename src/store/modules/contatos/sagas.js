@@ -4,9 +4,13 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import { getContactsSuccess, getContactsFailure } from './actions';
 
-export function* getContacts() {
+export function* getContacts({ payload }) {
+  const { ident, did } = payload;
+  console.log(ident, did, payload);
   try {
-    const { data } = yield call(api.get, 'contacts');
+    const { data } = yield call(api.get, 'contacts', {
+      params: { descricao: ident, did },
+    });
     yield put(getContactsSuccess(data));
   } catch (error) {
     toast.error('Erro ao buscar a lista de contatos');

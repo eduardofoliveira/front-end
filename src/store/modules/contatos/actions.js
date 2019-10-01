@@ -1,10 +1,10 @@
 /**
  * Buscar Contatos
  */
-export function getContactsRequest() {
+export function getContactsRequest(payload) {
   return {
     type: '@contacts/GET_CONTACTS_REQUEST',
-    payload: {},
+    payload,
   };
 }
 
