@@ -13,8 +13,6 @@ export default function Contatos() {
   const [ident, setIdent] = useState('');
   const [did, setDid] = useState('');
 
-  console.log(contatos);
-
   useEffect(() => {
     dispatch(getContactsRequest({ ident, did }));
   }, [did, dispatch, ident]);
@@ -46,7 +44,7 @@ export default function Contatos() {
         {contatos.rows &&
           contatos.rows.map(contato => {
             return (
-              <Link to={`/contato/${contato.id}`}>
+              <Link key={contato.id} to={`/contato/${contato.id}`}>
                 <Contato>
                   <div className="card">
                     <div className="header">
@@ -68,7 +66,7 @@ export default function Contatos() {
                       {contato.ContactFields.filter(item => item.conteudo).map(
                         field => {
                           return (
-                            <div className="field">
+                            <div key={field.id} className="field">
                               <strong>{field.nome_campo}:</strong>
                               {field.conteudo}
                             </div>

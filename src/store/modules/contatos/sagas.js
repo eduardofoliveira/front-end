@@ -6,7 +6,7 @@ import { getContactsSuccess, getContactsFailure } from './actions';
 
 export function* getContacts({ payload }) {
   const { ident, did } = payload;
-  console.log(ident, did, payload);
+
   try {
     const { data } = yield call(api.get, 'contacts', {
       params: { descricao: ident, did },
