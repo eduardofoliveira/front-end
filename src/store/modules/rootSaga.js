@@ -7,7 +7,17 @@ import tickets from './tickets/sagas';
 import ticket from './ticket/sagas';
 import contatos from './contatos/sagas';
 import contato from './contato/sagas';
+import websocket from './websocket/sagas';
 
 export default function* rootSaga() {
-  return yield all([auth, user, usuarios, tickets, ticket, contatos, contato]);
+  return yield all([
+    auth,
+    user,
+    usuarios,
+    tickets,
+    ticket,
+    contatos,
+    contato,
+    websocket,
+  ]);
 }

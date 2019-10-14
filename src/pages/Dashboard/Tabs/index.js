@@ -1,259 +1,48 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import socketio from 'socket.io-client';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Form, Input } from '@rocketseat/unform';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+import { Form, Input, Select } from '@rocketseat/unform';
 import { Container, ButtonContainer, TicketContainer } from './styles';
 
+import { changeTicketRequest } from '~/store/modules/websocket/actions';
+
+const options = [
+  { id: '1', title: 'Aberto' },
+  { id: '2', title: 'Fechado' },
+  { id: '3', title: 'Pendente' },
+];
+
 export default function Tabs() {
-  const { profile } = useSelector(state => state.user);
-
+  const dispatch = useDispatch();
   const [mostraDetalhes, setMostrarDetalhes] = useState(false);
+  const [mostrarHistorico, setMostrarHistorico] = useState(false);
 
-  const [chamados, setChamados] = useState([
-    {
-      from: '11961197559',
-      to: '551135880115',
-      user: 'Eduardo',
-      domain: 'cloud.cloudcom.com.br',
-      callid: '4svni-wfnzsv-k1gd46fy-1-k1m96p79-2gj6',
-      event: 'ESTABLISHED',
-      fromComment: 'Eduardo F Oliveira',
-      toComment: 'Suporte Basix',
-      script: 'Seguir este script',
-      id_from: 543,
-      detalhes: [
-        {
-          id: 19,
-          nome_campo: 'endereco',
-          conteudo: 'Rua Flávio Nobre de Campos',
-          fk_id_agenda: 543,
-        },
-        { id: 20, nome_campo: 'numero', conteudo: '186', fk_id_agenda: 543 },
-        {
-          id: 21,
-          nome_campo: 'complemento',
-          conteudo: 'Casa 1',
-          fk_id_agenda: 543,
-        },
-        {
-          id: 36,
-          nome_campo: 'tipo',
-          conteudo: 'Casa - Alugada',
-          fk_id_agenda: 543,
-        },
-        {
-          id: 37,
-          nome_campo: 'tipo',
-          conteudo: 'Casa - Alugada',
-          fk_id_agenda: 543,
-        },
-      ],
-      historico: [
-        {
-          id: 42521,
-          comentario: null,
-          inicio: '10/10/2019 19:23:54',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42520,
-          comentario: null,
-          inicio: '10/10/2019 18:59:05',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42519,
-          comentario: null,
-          inicio: '10/10/2019 18:58:41',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42518,
-          comentario: null,
-          inicio: '10/10/2019 18:55:39',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42517,
-          comentario: null,
-          inicio: '10/10/2019 18:54:47',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42516,
-          comentario: null,
-          inicio: '10/10/2019 18:27:53',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42515,
-          comentario: null,
-          inicio: '10/10/2019 18:24:37',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42514,
-          comentario: null,
-          inicio: '10/10/2019 18:06:20',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42513,
-          comentario: null,
-          inicio: '10/10/2019 18:05:19',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42512,
-          comentario: null,
-          inicio: '10/10/2019 18:03:46',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-      ],
-      id: 42630,
-      display: 'block',
-    },
-    {
-      from: '11961197559',
-      to: '551135880866',
-      user: 'Eduardo',
-      domain: 'cloud.cloudcom.com.br',
-      callid: '4svni-wfnzsv-k1gd46fy-1-k1m96p79-2gj6',
-      event: 'ESTABLISHED',
-      fromComment: 'Eduardo F Oliveira',
-      toComment: 'Suporte Brastel',
-      script: 'Seguir este script',
-      id_from: 543,
-      detalhes: [],
-      historico: [
-        {
-          id: 42521,
-          comentario: null,
-          inicio: '10/10/2019 19:23:54',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42520,
-          comentario: null,
-          inicio: '10/10/2019 18:59:05',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42519,
-          comentario: null,
-          inicio: '10/10/2019 18:58:41',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42518,
-          comentario: null,
-          inicio: '10/10/2019 18:55:39',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42517,
-          comentario: null,
-          inicio: '10/10/2019 18:54:47',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42516,
-          comentario: null,
-          inicio: '10/10/2019 18:27:53',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42515,
-          comentario: null,
-          inicio: '10/10/2019 18:24:37',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42514,
-          comentario: null,
-          inicio: '10/10/2019 18:06:20',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42513,
-          comentario: null,
-          inicio: '10/10/2019 18:05:19',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-        {
-          id: 42512,
-          comentario: null,
-          inicio: '10/10/2019 18:03:46',
-          status: 'Aberto',
-          nome: 'Eduardo',
-        },
-      ],
-      id: 42631,
-      display: 'none',
-    },
-  ]);
-
-  useEffect(() => {
-    const socket = socketio('http://35.171.122.245:83');
-    socket.on(`${profile.dominio}-${profile.user_basix}`, data => {
-      setChamados(
-        [...chamados, data].map(chamado => {
-          if (chamado.id !== data.id) {
-            chamado.display = 'none';
-          } else {
-            chamado.display = 'block';
-          }
-          return chamado;
-        })
-      );
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { chamados } = useSelector(state => state.websocket);
 
   function openCity(id) {
-    setChamados(
-      chamados.map(chamado => {
-        if (chamado.id === id) {
-          chamado.display = 'block';
-        } else {
-          chamado.display = 'none';
-        }
+    dispatch(changeTicketRequest(id));
+  }
 
-        return chamado;
-      })
-    );
+  function submitForm(data) {
+    if (!data.status) {
+      const MySwal = withReactContent(Swal);
+      return MySwal.fire({
+        type: 'error',
+        title: 'Campo em branco',
+        text: 'Selecione um status para o chamado',
+      });
+    }
+    return alert(JSON.stringify(data));
   }
 
   return (
     <Container>
-      <p>Tabs</p>
-      {JSON.stringify(chamados)}
+      {/* {JSON.stringify(chamados)} */}
       <ButtonContainer>
         {chamados.map(chamado => {
           return (
@@ -275,12 +64,20 @@ export default function Tabs() {
         {chamados.map(chamado => {
           return (
             <Form
-              initialData={{ from: chamado.fromComment, to: chamado.toComment }}
+              initialData={{
+                id: chamado.id,
+                from: chamado.fromComment,
+                to: chamado.toComment,
+                script: chamado.script,
+              }}
+              onSubmit={submitForm}
               id={chamado.id}
               key={chamado.id}
               className="ticket"
               style={{ display: chamado.display }}
             >
+              <Input id="id" name="id" hidden />
+
               <div className="horizontal">
                 <fieldset className="contact-detail">
                   <legend>Originador:</legend>
@@ -307,15 +104,44 @@ export default function Tabs() {
                 </fieldset>
               </div>
 
-              {!mostraDetalhes && chamado.detalhes.length > 0 && (
-                <button
-                  type="button"
-                  className="btn-detalhes btn-green"
-                  onClick={() => setMostrarDetalhes(!mostraDetalhes)}
-                >
-                  Detalhes
-                </button>
-              )}
+              <div>
+                {!mostraDetalhes && chamado.detalhes.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn-detalhes btn-green"
+                    onClick={() => setMostrarDetalhes(!mostraDetalhes)}
+                  >
+                    Detalhes
+                  </button>
+                )}
+                {mostraDetalhes && (
+                  <button
+                    type="button"
+                    className="btn-detalhes btn-red"
+                    onClick={() => setMostrarDetalhes(!mostraDetalhes)}
+                  >
+                    Ocultar
+                  </button>
+                )}
+                {!mostrarHistorico && chamado.historico.length > 0 && (
+                  <button
+                    type="button"
+                    className="btn-detalhes btn-green"
+                    onClick={() => setMostrarHistorico(!mostrarHistorico)}
+                  >
+                    Historico
+                  </button>
+                )}
+                {mostrarHistorico && (
+                  <button
+                    type="button"
+                    className="btn-detalhes btn-red"
+                    onClick={() => setMostrarHistorico(!mostrarHistorico)}
+                  >
+                    Ocultar
+                  </button>
+                )}
+              </div>
 
               {mostraDetalhes && chamado.detalhes.length > 0 && (
                 <fieldset className="fieldsetdetalhes">
@@ -330,19 +156,65 @@ export default function Tabs() {
                       );
                     })}
                   </div>
-                  {mostraDetalhes && (
-                    <button
-                      type="button"
-                      className="btn-detalhes btn-red"
-                      onClick={() => setMostrarDetalhes(!mostraDetalhes)}
-                    >
-                      Ocultar
-                    </button>
-                  )}
                 </fieldset>
               )}
 
-              <p>{chamado.texto}</p>
+              {mostrarHistorico && chamado.historico.length > 0 && (
+                <fieldset className="fieldsethistorico">
+                  <legend>Historico:</legend>
+
+                  {chamado.historico.map(item => {
+                    return (
+                      <div key={item.id}>
+                        <div>{item.id}</div>
+                        <div>{item.comentario}</div>
+                        <div>{item.inicio}</div>
+                        <div>{item.status}</div>
+                        <div>{item.nome}</div>
+                      </div>
+                    );
+                  })}
+                </fieldset>
+              )}
+
+              <fieldset className="fieldsetdetalhes">
+                <legend>Script de atendimento:</legend>
+
+                <Input
+                  id="script"
+                  name="script"
+                  placeholder="Script de atendimento"
+                  disabled
+                  multiline
+                />
+              </fieldset>
+
+              <fieldset className="fieldsetdetalhes">
+                <legend>Detalhes da chamada:</legend>
+                Status: <Select id="status" name="status" options={options} />
+                <Input
+                  id="atendimento"
+                  name="atendimento"
+                  placeholder="dados da chamada"
+                  multiline
+                />
+              </fieldset>
+
+              <div className="buttons">
+                <div>
+                  <button type="submit" className="btn-blue">
+                    Salvar
+                  </button>
+                  <button type="button" className="btn-red">
+                    Descartar
+                  </button>
+                </div>
+                <div>
+                  <button type="button" className="btn-red">
+                    Descartar Todos
+                  </button>
+                </div>
+              </div>
             </Form>
           );
         })}

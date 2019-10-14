@@ -7,6 +7,7 @@ import tickets from './tickets/reducer';
 import ticket from './ticket/reducer';
 import contatos from './contatos/reducer';
 import contato from './contato/reducer';
+import websocket from './websocket/reducer';
 
 export default combineReducers({
   auth,
@@ -16,4 +17,5 @@ export default combineReducers({
   ticket,
   contatos,
   contato,
+  websocket,
 });
