@@ -111,12 +111,12 @@ export const Ticket = styled.div`
   }
 
   div.aberto {
-    background-color: rgba(0, 255, 0, 0.5);
+    background-color: rgba(0, 255, 0, 0.3);
     div:nth-child(2) {
       color: red;
     }
     &:hover {
-      background-color: rgba(0, 255, 0, 0.8);
+      background-color: rgba(0, 255, 0, 0.5);
     }
   }
 

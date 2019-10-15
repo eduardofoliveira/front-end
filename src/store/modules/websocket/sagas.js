@@ -8,7 +8,7 @@ export function* receiveCall({ payload }) {
     const ticket = payload.data;
 
     yield put(receiveCallSuccess(ticket));
-    toast.error('Chamada recebida !');
+    toast.warn('Chamada recebida !');
   } catch (error) {
     toast.error('Erro ao receber requisição websocket !');
     yield put(receiveCallFailure());

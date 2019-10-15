@@ -34,6 +34,25 @@ export const ButtonContainer = styled.div`
 `;
 
 export const TicketContainer = styled.div`
+  .historico-item {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+
+    textarea {
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      padding: 15px 15px;
+      border: 0;
+      border-radius: 4px;
+      height: 150px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+
   .horizontal {
     display: flex;
   }
@@ -118,6 +137,10 @@ export const TicketContainer = styled.div`
         color: #555;
         font-size: 16px;
       }
+    }
+
+    #script {
+      background: rgba(0, 0, 0, 0.3);
     }
   }
 

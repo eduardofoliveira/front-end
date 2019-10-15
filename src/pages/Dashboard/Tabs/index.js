@@ -37,7 +37,8 @@ export default function Tabs() {
         text: 'Selecione um status para o chamado',
       });
     }
-    return alert(JSON.stringify(data));
+    return null;
+    // Update Ticket on Database
   }
 
   return (
@@ -166,11 +167,28 @@ export default function Tabs() {
                   {chamado.historico.map(item => {
                     return (
                       <div key={item.id}>
-                        <div>{item.id}</div>
-                        <div>{item.comentario}</div>
-                        <div>{item.inicio}</div>
-                        <div>{item.status}</div>
-                        <div>{item.nome}</div>
+                        <fieldset className="historico-item">
+                          <legend>{item.id}</legend>
+                          <div>
+                            Inicio: <strong>{item.inicio}</strong>
+                          </div>
+                          <div>
+                            Status: <strong>{item.status}</strong>
+                          </div>
+                          <div>
+                            Nome: <strong>{item.nome}</strong>
+                          </div>
+                          {item.comentario && (
+                            <div>
+                              <strong>Detalhes:</strong>
+                              <br />
+                              <textarea
+                                defaultValue={item.comentario}
+                                disabled
+                              />
+                            </div>
+                          )}
+                        </fieldset>
                       </div>
                     );
                   })}

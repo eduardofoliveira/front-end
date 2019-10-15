@@ -10,14 +10,18 @@ export default function Websocket() {
 
   useEffect(() => {
     const socket = socketio('http://35.171.122.245:83');
-    socket.on(`${profile.dominio}-${profile.user_basix}`, data => {
-      dispatch(receiveCallRequest(data));
-    });
+
+    if (profile) {
+      socket.on(`${profile.dominio}-${profile.user_basix}`, data => {
+        dispatch(receiveCallRequest(data));
+      });
+    }
 
     return () => {
       socket.disconnect();
     };
-  }, [dispatch, profile.dominio, profile.user_basix]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]);
 
   return <div />;
 }
