@@ -43,3 +43,13 @@ export function updateTicketFailure() {
     type: '@ticket/UPDATE_TICKET_FAILURE',
   };
 }
+
+/**
+ * Atualizar Ticket sem Redirecionamento
+ */
+export function updateTicketRequestDashboard(data) {
+  return {
+    type: '@ticket/UPDATE_TICKET_REQUEST_DASHBOARD',
+    payload: { data },
+  };
+}

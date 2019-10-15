@@ -1,7 +1,14 @@
-import { takeLatest, put, all } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
 
-import { receiveCallSuccess, receiveCallFailure } from './actions';
+import api from '~/services/api';
+
+import {
+  receiveCallSuccess,
+  receiveCallFailure,
+  openTicketsSuccess,
+  openTicketsFailure,
+} from './actions';
 
 export function* receiveCall({ payload }) {
   try {
@@ -15,6 +22,17 @@ export function* receiveCall({ payload }) {
   }
 }
 
+export function* searchIDs() {
+  try {
+    const { data } = yield call(api.get, 'tickets/opens');
+    yield put(openTicketsSuccess(data));
+  } catch (error) {
+    toast.error('Erro ao atualizar tickets abertos !');
+    yield put(openTicketsFailure());
+  }
+}
+
 export default all([
   takeLatest('@websocket/RECEIVE_CALL_REQUEST', receiveCall),
+  takeLatest('@websocket/OPEN_TICKET_REQUEST', searchIDs),
 ]);

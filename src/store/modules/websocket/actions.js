@@ -22,11 +22,55 @@ export function receiveCallFailure() {
 }
 
 /**
- * Recebimento de chamada
+ * Mudar de aba
  */
 export function changeTicketRequest(id) {
   return {
     type: '@websocket/CHANGE_TICKET_REQUEST',
     payload: { id },
+  };
+}
+
+/**
+ * Buscar ID´s de chamadas abertos
+ */
+export function openTicketsRequest() {
+  return {
+    type: '@websocket/OPEN_TICKET_REQUEST',
+    payload: {},
+  };
+}
+
+export function openTicketsSuccess(ids) {
+  return {
+    type: '@websocket/OPEN_TICKET_SUCCESS',
+    payload: { ids },
+  };
+}
+
+export function openTicketsFailure() {
+  return {
+    type: '@websocket/OPEN_TICKET_FAILURE',
+    payload: {},
+  };
+}
+
+/**
+ * Altera Ticket e remove do dashboard
+ */
+export function removeTicketOpen(id) {
+  return {
+    type: '@websocket/REMOVE_TICKET_OPEN',
+    payload: { id },
+  };
+}
+
+/**
+ * Exibe ultimo ticket aberto, se houver
+ */
+export function showNextOpen() {
+  return {
+    type: '@websocket/SHOW_NEXT_OPEN',
+    payload: {},
   };
 }

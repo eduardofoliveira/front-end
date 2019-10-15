@@ -10,6 +10,7 @@ import {
   updateTicketSuccess,
   updateTicketFailure,
 } from './actions';
+import { removeTicketOpen, showNextOpen } from '../websocket/actions';
 
 export function* getTicket({ payload }) {
   const { id } = payload;
@@ -45,7 +46,25 @@ export function* updateTicket({ payload }) {
   }
 }
 
+export function* updateTicketDashboard({ payload }) {
+  const { id, aberto, comentario } = payload.data;
+
+  try {
+    const { data: ticket } = yield call(api.put, `tickets/${id}`, {
+      aberto,
+      comentario,
+    });
+    yield put(removeTicketOpen(ticket.id));
+    yield put(showNextOpen());
+    toast.success('Ticket atualizado com sucesso');
+  } catch (error) {
+    toast.error('Falha ao atualizar Ticket');
+    yield put(updateTicketFailure());
+  }
+}
+
 export default all([
   takeLatest('@ticket/GET_TICKET_REQUEST', getTicket),
   takeLatest('@ticket/UPDATE_TICKET_REQUEST', updateTicket),
+  takeLatest('@ticket/UPDATE_TICKET_REQUEST_DASHBOARD', updateTicketDashboard),
 ]);

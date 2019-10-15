@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Swal from 'sweetalert2';
@@ -9,7 +9,11 @@ import withReactContent from 'sweetalert2-react-content';
 import { Form, Input, Select } from '@rocketseat/unform';
 import { Container, ButtonContainer, TicketContainer } from './styles';
 
-import { changeTicketRequest } from '~/store/modules/websocket/actions';
+import {
+  changeTicketRequest,
+  openTicketsRequest,
+} from '~/store/modules/websocket/actions';
+import { updateTicketRequestDashboard } from '~/store/modules/ticket/actions';
 
 const options = [
   { id: '1', title: 'Aberto' },
@@ -24,6 +28,10 @@ export default function Tabs() {
 
   const { chamados } = useSelector(state => state.websocket);
 
+  useEffect(() => {
+    dispatch(openTicketsRequest());
+  }, [dispatch]);
+
   function openCity(id) {
     dispatch(changeTicketRequest(id));
   }
@@ -31,14 +39,15 @@ export default function Tabs() {
   function submitForm(data) {
     if (!data.status) {
       const MySwal = withReactContent(Swal);
-      return MySwal.fire({
+      MySwal.fire({
         type: 'error',
         title: 'Campo em branco',
         text: 'Selecione um status para o chamado',
       });
+    } else {
+      const { atendimento: comentario, status: aberto, id } = data;
+      dispatch(updateTicketRequestDashboard({ id, comentario, aberto }));
     }
-    return null;
-    // Update Ticket on Database
   }
 
   return (

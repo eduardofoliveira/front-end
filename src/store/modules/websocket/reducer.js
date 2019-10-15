@@ -28,6 +28,31 @@ export default function user(state = INITIAL_STATE, action) {
           return chamado;
         });
       });
+    case '@websocket/OPEN_TICKET_SUCCESS':
+      return produce(state, draft => {
+        draft.chamados = state.chamados.filter(item => {
+          return action.payload.ids.map(item2 => item2.id).includes(item.id);
+        });
+      });
+    case '@websocket/REMOVE_TICKET_OPEN':
+      return produce(state, draft => {
+        draft.chamados = state.chamados.filter(
+          item => action.payload.id !== item.id
+        );
+      });
+    case '@websocket/SHOW_NEXT_OPEN':
+      return produce(state, draft => {
+        if (state.chamados.length > 0) {
+          draft.chamados = state.chamados.map((chamado, index) => {
+            if (index === state.chamados.length - 1) {
+              chamado.display = 'block';
+            } else {
+              chamado.display = 'none';
+            }
+            return chamado;
+          });
+        }
+      });
     default:
       return state;
   }
