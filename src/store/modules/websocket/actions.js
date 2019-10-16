@@ -74,3 +74,20 @@ export function showNextOpen() {
     payload: {},
   };
 }
+
+/**
+ * Atualizar os Tickets abertos
+ */
+export function checkOpenTicketsRequest() {
+  return {
+    type: '@websocket/CHECK_OPEN_TICKETS_REQUEST',
+    payload: {},
+  };
+}
+
+export function checkOpenTicketsSuccess(tickets) {
+  return {
+    type: '@websocket/CHECK_OPEN_TICKETS_SUCCESS',
+    payload: { tickets },
+  };
+}

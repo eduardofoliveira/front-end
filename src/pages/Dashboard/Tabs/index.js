@@ -12,6 +12,7 @@ import { Container, ButtonContainer, TicketContainer } from './styles';
 import {
   changeTicketRequest,
   openTicketsRequest,
+  checkOpenTicketsRequest,
 } from '~/store/modules/websocket/actions';
 import { updateTicketRequestDashboard } from '~/store/modules/ticket/actions';
 
@@ -29,6 +30,7 @@ export default function Tabs() {
   const { chamados } = useSelector(state => state.websocket);
 
   useEffect(() => {
+    dispatch(checkOpenTicketsRequest());
     dispatch(openTicketsRequest());
   }, [dispatch]);
 

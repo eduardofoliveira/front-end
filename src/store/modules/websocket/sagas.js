@@ -8,6 +8,7 @@ import {
   receiveCallFailure,
   openTicketsSuccess,
   openTicketsFailure,
+  checkOpenTicketsSuccess,
 } from './actions';
 
 export function* receiveCall({ payload }) {
@@ -32,7 +33,17 @@ export function* searchIDs() {
   }
 }
 
+export function* refreshOpenTickets() {
+  try {
+    const { data } = yield call(api.get, 'tickets/open');
+    yield put(checkOpenTicketsSuccess(data));
+  } catch (error) {
+    toast.error('Erro ao sincronizar tickets abertos !');
+  }
+}
+
 export default all([
   takeLatest('@websocket/RECEIVE_CALL_REQUEST', receiveCall),
   takeLatest('@websocket/OPEN_TICKET_REQUEST', searchIDs),
+  takeLatest('@websocket/CHECK_OPEN_TICKETS_REQUEST', refreshOpenTickets),
 ]);

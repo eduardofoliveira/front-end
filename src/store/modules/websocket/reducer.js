@@ -53,6 +53,31 @@ export default function user(state = INITIAL_STATE, action) {
           });
         }
       });
+    case '@websocket/CHECK_OPEN_TICKETS_SUCCESS':
+      return produce(state, draft => {
+        if (action.payload.tickets.length > 0) {
+          const ids = state.chamados.map(chamado => {
+            return chamado.id;
+          });
+
+          const novos = action.payload.tickets.filter(
+            ticket => !ids.includes(ticket.id)
+          );
+
+          let chamadosAbertos = [...state.chamados, ...novos];
+
+          chamadosAbertos = chamadosAbertos.map((chamadoi, index) => {
+            if (index === chamadosAbertos.length - 1) {
+              chamadoi.display = 'block';
+            } else {
+              chamadoi.display = 'none';
+            }
+            return chamadoi;
+          });
+
+          draft.chamados = [...chamadosAbertos];
+        }
+      });
     default:
       return state;
   }
