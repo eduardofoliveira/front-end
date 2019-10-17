@@ -9,6 +9,8 @@ import {
   updateContactFailure,
   deleteFieldSuccess,
   deleteFieldFailure,
+  addContactSuccess,
+  addContactFailure,
 } from './actions';
 
 export function* getContact({ payload }) {
@@ -52,8 +54,36 @@ export function* deleteField({ payload }) {
   }
 }
 
+export function* contactAddRequest({ payload }) {
+  const { contact } = payload;
+
+  try {
+    const { data } = yield call(api.post, 'contacts', contact);
+    yield put(addContactSuccess(data));
+  } catch (error) {
+    if (error.response.data.error) {
+      yield put(addContactFailure(error.response.data.error));
+    } else {
+      yield put(addContactFailure('Erro ao adicionar contato'));
+    }
+  }
+}
+
+export function* contactAddSuccess({ payload }) {
+  const { contact } = payload;
+  yield toast.success(`Contato adicionado com id: ${contact.id}`);
+}
+
+export function* contactAddFailure({ payload }) {
+  const { error } = payload;
+  yield toast.error(error);
+}
+
 export default all([
   takeLatest('@contact/GET_CONTACT_REQUEST', getContact),
   takeLatest('@contact/UPDATE_CONTACT_REQUEST', updateContact),
   takeLatest('@contact/DELETE_FIELD_REQUEST', deleteField),
+  takeLatest('@contact/ADD_CONTACT_REQUEST', contactAddRequest),
+  takeLatest('@contact/ADD_CONTACT_SUCCESS', contactAddSuccess),
+  takeLatest('@contact/ADD_CONTACT_FAILURE', contactAddFailure),
 ]);

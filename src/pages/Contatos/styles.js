@@ -1,8 +1,39 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    height: 44px;
+    padding: 12px 15px;
+    background: #3b9eff;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.2s;
+    box-shadow: 4px 4px #999;
+
+    &:hover {
+      background: ${darken(0.1, '#3b9eff')};
+    }
+
+    &:active {
+      background-color: ${darken(0.2, '#3b9eff')};
+      box-shadow: 2px 2px #666;
+      border: 1px solid #fff;
+      transform: translateY(1px);
+    }
+  }
 
   div.menu {
     margin-right: 10px;

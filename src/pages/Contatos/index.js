@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 
 import { getContactsRequest } from '~/store/modules/contatos/actions';
 import { Container, ListContatos, Contato } from './styles';
@@ -37,6 +38,11 @@ export default function Contatos() {
             value={did}
             onChange={e => setDid(e.target.value)}
           />
+        </div>
+        <div className="btn-container">
+          <Link to="/contatos/add" className="btn">
+            <FaPlus /> Adicionar
+          </Link>
         </div>
       </div>
 

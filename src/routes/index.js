@@ -12,6 +12,7 @@ import Chamados from '../pages/Tickets';
 import Chamado from '../pages/Ticket';
 import Contatos from '../pages/Contatos';
 import Contato from '../pages/Contato';
+import ContatoAdd from '../pages/Contato_Add';
 
 export default function Routes() {
   return (
@@ -25,7 +26,8 @@ export default function Routes() {
       <Route path="/usuarios/:id" component={UsuarioEdt} isPrivate />
       <Route path="/chamados" component={Chamados} isPrivate />
       <Route path="/chamado/:id" component={Chamado} isPrivate />
-      <Route path="/contatos" component={Contatos} isPrivate />
+      <Route path="/contatos" exact component={Contatos} isPrivate />
+      <Route path="/contatos/add" component={ContatoAdd} isPrivate />
       <Route path="/contato/:id" component={Contato} isPrivate />
     </Switch>
   );

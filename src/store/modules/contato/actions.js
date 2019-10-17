@@ -1,4 +1,28 @@
 /**
+ * Adicionar Contato
+ */
+export function addContactRequest(contact) {
+  return {
+    type: '@contact/ADD_CONTACT_REQUEST',
+    payload: { contact },
+  };
+}
+
+export function addContactSuccess(contact) {
+  return {
+    type: '@contact/ADD_CONTACT_SUCCESS',
+    payload: { contact },
+  };
+}
+
+export function addContactFailure(error) {
+  return {
+    type: '@contact/ADD_CONTACT_FAILURE',
+    payload: { error },
+  };
+}
+
+/**
  * Buscar Contato
  */
 export function getContactRequest(payload) {
