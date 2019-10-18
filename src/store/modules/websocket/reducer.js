@@ -13,6 +13,7 @@ export default function user(state = INITIAL_STATE, action) {
           return item;
         });
         const { ticket } = action.payload;
+        ticket.aberto = 1;
         ticket.display = 'block';
 
         draft.chamados = [...displayNone, ticket];
@@ -66,14 +67,20 @@ export default function user(state = INITIAL_STATE, action) {
 
           let chamadosAbertos = [...state.chamados, ...novos];
 
-          chamadosAbertos = chamadosAbertos.map((chamadoi, index) => {
-            if (index === chamadosAbertos.length - 1) {
-              chamadoi.display = 'block';
-            } else {
-              chamadoi.display = 'none';
-            }
-            return chamadoi;
-          });
+          const existeAberto = chamadosAbertos.filter(
+            item => item.display === 'block'
+          );
+
+          if (!(existeAberto.length > 0)) {
+            chamadosAbertos = chamadosAbertos.map((chamadoi, index) => {
+              if (index === chamadosAbertos.length - 1) {
+                chamadoi.display = 'block';
+              } else {
+                chamadoi.display = 'none';
+              }
+              return chamadoi;
+            });
+          }
 
           draft.chamados = [...chamadosAbertos];
         }

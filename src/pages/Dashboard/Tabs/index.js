@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -81,12 +82,14 @@ export default function Tabs() {
                 from: chamado.fromComment,
                 to: chamado.toComment,
                 script: chamado.script,
+                atendimento: chamado.comentario,
+                status: chamado.aberto,
               }}
               onSubmit={submitForm}
               id={chamado.id}
               key={chamado.id}
               className="ticket"
-              style={{ display: chamado.display }}
+              style={{ display: chamado.display || 'none' }}
             >
               <Input id="id" name="id" hidden />
 
@@ -94,12 +97,32 @@ export default function Tabs() {
                 <fieldset className="contact-detail">
                   <legend>Originador:</legend>
                   <div className="contact-fields">
-                    <div>
-                      Numero: <span>{chamado.from}</span>
-                    </div>
-                    <div>
-                      Descrição: <Input type="text" name="from" />
-                    </div>
+                    {!chamado.id_from && (
+                      <div>
+                        Numero:{' '}
+                        <span>
+                          <Link to={`/contatos/add?did=${chamado.from}`}>
+                            {chamado.from}
+                          </Link>
+                        </span>
+                      </div>
+                    )}
+                    {chamado.id_from && (
+                      <div>
+                        Numero:{' '}
+                        <span>
+                          <Link to={`/contato/${chamado.id_from}`}>
+                            {chamado.from}
+                          </Link>
+                        </span>
+                      </div>
+                    )}
+
+                    {chamado.id_from && (
+                      <div>
+                        Descrição: <Input type="text" name="from" />
+                      </div>
+                    )}
                   </div>
                 </fieldset>
 

@@ -89,6 +89,19 @@ export const TicketContainer = styled.div`
         justify-content: space-between;
         align-items: center;
       }
+
+      div {
+        span {
+          a {
+            color: #fff;
+            font-weight: bold;
+
+            &:hover {
+              color: #0949b1;
+            }
+          }
+        }
+      }
     }
 
     span {
