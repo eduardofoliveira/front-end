@@ -91,3 +91,51 @@ export function checkOpenTicketsSuccess(tickets) {
     payload: { tickets },
   };
 }
+
+/**
+ * Deletar Ticket
+ */
+export function deleteTicketRequest(id) {
+  return {
+    type: '@websocket/DELETE_TICKET_REQUEST',
+    payload: { id },
+  };
+}
+
+export function deleteTicketSuccess(id) {
+  return {
+    type: '@websocket/DELETE_TICKET_SUCCESS',
+    payload: { id },
+  };
+}
+
+export function deleteTicketFailure() {
+  return {
+    type: '@websocket/DELETE_TICKET_FAILURE',
+    payload: {},
+  };
+}
+
+/**
+ * Deletar Todos os Tickets Abertos
+ */
+export function deleteAllOpenTicketsRequest() {
+  return {
+    type: '@websocket/DELETE_ALL_OPEN_TICKET_REQUEST',
+    payload: {},
+  };
+}
+
+export function deleteAllOpenTicketsSuccess() {
+  return {
+    type: '@websocket/DELETE_ALL_OPEN_TICKET_SUCCESS',
+    payload: {},
+  };
+}
+
+export function deleteAllOpenTicketsFailure() {
+  return {
+    type: '@websocket/DELETE_ALL_OPEN_TICKET_FAILURE',
+    payload: {},
+  };
+}

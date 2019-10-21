@@ -85,6 +85,31 @@ export default function user(state = INITIAL_STATE, action) {
           draft.chamados = [...chamadosAbertos];
         }
       });
+    case '@websocket/DELETE_TICKET_SUCCESS':
+      return produce(state, draft => {
+        let retorno = state.chamados.filter(item => {
+          return item.id !== action.payload.id;
+        });
+
+        const existeAberto = retorno.filter(item => item.display === 'block');
+
+        if (!existeAberto) {
+          retorno = retorno.map((chamadoi, index) => {
+            if (index === retorno.length - 1) {
+              chamadoi.display = 'block';
+            } else {
+              chamadoi.display = 'none';
+            }
+            return chamadoi;
+          });
+        }
+
+        draft.chamados = [...retorno];
+      });
+    case '@websocket/DELETE_ALL_OPEN_TICKET_SUCCESS':
+      return produce(state, draft => {
+        draft.chamados = [];
+      });
     default:
       return state;
   }

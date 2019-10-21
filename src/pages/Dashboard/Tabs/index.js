@@ -14,6 +14,8 @@ import {
   changeTicketRequest,
   openTicketsRequest,
   checkOpenTicketsRequest,
+  deleteTicketRequest,
+  deleteAllOpenTicketsRequest,
 } from '~/store/modules/websocket/actions';
 import { updateTicketRequestDashboard } from '~/store/modules/ticket/actions';
 
@@ -257,12 +259,20 @@ export default function Tabs() {
                   <button type="submit" className="btn-blue">
                     Salvar
                   </button>
-                  <button type="button" className="btn-red">
+                  <button
+                    type="button"
+                    className="btn-red"
+                    onClick={() => dispatch(deleteTicketRequest(chamado.id))}
+                  >
                     Descartar
                   </button>
                 </div>
                 <div>
-                  <button type="button" className="btn-red">
+                  <button
+                    type="button"
+                    className="btn-red"
+                    onClick={() => dispatch(deleteAllOpenTicketsRequest())}
+                  >
                     Descartar Todos
                   </button>
                 </div>

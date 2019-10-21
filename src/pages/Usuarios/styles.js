@@ -88,15 +88,15 @@ export const Table = styled.table`
   }
 
   tbody tr:hover {
-    background-color: rgba(0, 0, 255, 0.2);
+    background-color: rgba(0, 0, 255, 0.3);
   }
 
   td.ativo {
-    background-color: rgba(0, 255, 0, 0.08);
+    background-color: rgba(0, 255, 0, 0.3);
   }
 
   td.inativo {
-    background-color: rgba(255, 0, 0, 0.08);
+    background-color: rgba(255, 0, 0, 0.3);
     color: #000;
   }
 

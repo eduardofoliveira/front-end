@@ -9,6 +9,8 @@ import {
   openTicketsSuccess,
   openTicketsFailure,
   checkOpenTicketsSuccess,
+  deleteTicketSuccess,
+  deleteAllOpenTicketsSuccess,
 } from './actions';
 
 export function* receiveCall({ payload }) {
@@ -42,8 +44,32 @@ export function* refreshOpenTickets() {
   }
 }
 
+export function* deleteTicket({ payload }) {
+  try {
+    const { id } = payload;
+
+    yield call(api.delete, `tickets/${id}`);
+    yield put(deleteTicketSuccess(id));
+    toast.success('Chamado removido !');
+  } catch (error) {
+    toast.error('Erro ao remover Chamado !');
+  }
+}
+
+export function* deleteAllOpenTicket() {
+  try {
+    yield call(api.delete, `tickets/opens`);
+    yield put(deleteAllOpenTicketsSuccess());
+    toast.success('Chamados removidos !');
+  } catch (error) {
+    toast.error('Erro ao remover Chamado abertos!');
+  }
+}
+
 export default all([
   takeLatest('@websocket/RECEIVE_CALL_REQUEST', receiveCall),
   takeLatest('@websocket/OPEN_TICKET_REQUEST', searchIDs),
   takeLatest('@websocket/CHECK_OPEN_TICKETS_REQUEST', refreshOpenTickets),
+  takeLatest('@websocket/DELETE_TICKET_REQUEST', deleteTicket),
+  takeLatest('@websocket/DELETE_ALL_OPEN_TICKET_REQUEST', deleteAllOpenTicket),
 ]);
