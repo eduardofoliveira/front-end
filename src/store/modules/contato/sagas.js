@@ -12,6 +12,7 @@ import {
   addContactSuccess,
   addContactFailure,
 } from './actions';
+import { clear } from '../websocket/actions';
 
 export function* getContact({ payload }) {
   const { id } = payload;
@@ -31,6 +32,7 @@ export function* updateContact({ payload }) {
   try {
     const { data } = yield call(api.put, `contacts/${id}`, payload);
     yield put(updateContactSuccess(data));
+    yield put(clear());
     yield toast.success('Contato atualizado');
   } catch (error) {
     toast.error('Erro ao atualizar contato');
@@ -72,6 +74,7 @@ export function* contactAddRequest({ payload }) {
 export function* contactAddSuccess({ payload }) {
   const { contact } = payload;
   yield toast.success(`Contato adicionado com id: ${contact.id}`);
+  yield put(clear());
 }
 
 export function* contactAddFailure({ payload }) {

@@ -93,7 +93,7 @@ export default function user(state = INITIAL_STATE, action) {
 
         const existeAberto = retorno.filter(item => item.display === 'block');
 
-        if (!existeAberto) {
+        if (existeAberto.length === 0) {
           retorno = retorno.map((chamadoi, index) => {
             if (index === retorno.length - 1) {
               chamadoi.display = 'block';
@@ -107,6 +107,10 @@ export default function user(state = INITIAL_STATE, action) {
         draft.chamados = [...retorno];
       });
     case '@websocket/DELETE_ALL_OPEN_TICKET_SUCCESS':
+      return produce(state, draft => {
+        draft.chamados = [];
+      });
+    case '@websocket/CLEAR':
       return produce(state, draft => {
         draft.chamados = [];
       });

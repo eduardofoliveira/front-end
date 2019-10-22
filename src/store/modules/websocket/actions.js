@@ -139,3 +139,13 @@ export function deleteAllOpenTicketsFailure() {
     payload: {},
   };
 }
+
+/**
+ * Remove todos os Tickets da Tela
+ */
+export function clear() {
+  return {
+    type: '@websocket/CLEAR',
+    payload: {},
+  };
+}

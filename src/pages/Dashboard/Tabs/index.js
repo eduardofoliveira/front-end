@@ -122,7 +122,7 @@ export default function Tabs() {
 
                     {chamado.id_from && (
                       <div>
-                        Descrição: <Input type="text" name="from" />
+                        Descrição: <Input type="text" name="from" disabled />
                       </div>
                     )}
                   </div>
@@ -135,7 +135,7 @@ export default function Tabs() {
                       Numero: <span>{chamado.to}</span>
                     </div>
                     <div>
-                      Descrição: <Input type="text" name="to" />
+                      Descrição: <Input type="text" name="to" disabled />
                     </div>
                   </div>
                 </fieldset>
