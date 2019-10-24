@@ -50,7 +50,9 @@ export default function Profile() {
 
   useEffect(() => {
     const executar = async () => {
-      const response = await api.get(`/users/1/${profile.id}`);
+      const response = await api.get(
+        `/users/${profile.id_dominio}/${profile.id}`
+      );
       setAtivo(response.data.ativo);
       setNome(response.data.nome);
       setEmail(response.data.email);
@@ -69,7 +71,7 @@ export default function Profile() {
       setLoading(false);
     };
     executar();
-  }, [profile.id]);
+  }, [profile.id, profile.id_dominio]);
 
   function handleSubmit(data) {
     data = {
