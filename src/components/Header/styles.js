@@ -37,7 +37,7 @@ export const Content = styled.div`
     a {
       font-weight: bold;
       font-size: 16px;
-      color: #006cf0;
+      color: #999;
       text-transform: uppercase;
       display: flex;
       align-items: center;
@@ -54,7 +54,7 @@ export const Content = styled.div`
     }
 
     a.active {
-      color: white;
+      color: #0288d1;
     }
 
     aside {
