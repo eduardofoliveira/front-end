@@ -3,35 +3,33 @@ import { createGlobalStyle } from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+  /* @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap'); */
 
-  * {
+  /* * {
     margin: 0;
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-  }
+  } */
 
-  *:focus {
+  /* *:focus {
     outline: 0;
-  }
+  } */
 
   html, body, #root {
     height: 100%;
-    -background: linear-gradient(-90deg, #dae6f5, #869ed5);
-    background-color: #eeefe9;
   }
 
   body {
     -webkit-font-smoothing: antialiased !important;
   }
 
-  body, input, button {
+  /* body, input, button {
     font: 14px 'Roboto', sans-serif;
     color: #212121;
-  }
+  } */
 
-  a {
+  /* a {
     text-decoration: none;
   }
 
@@ -41,12 +39,12 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
-  }
+  } */
 
-  div.carregando {
+  /* div.carregando {
     display: flex;
     justify-content: center;
     justify-items: center;
     color: #fff;
-  }
+  } */
 `;

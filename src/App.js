@@ -11,6 +11,7 @@ import history from './services/history';
 
 import { store, persistor } from './store';
 
+import 'semantic-ui-css/semantic.min.css';
 import GlobalStyle from './styles/global';
 import Websocket from './services/websocket';
 
