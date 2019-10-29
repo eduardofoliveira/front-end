@@ -1,88 +1,100 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Menu, Button } from 'semantic-ui-react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { FaHome, FaSitemap, FaUsers, FaBook, FaThList } from 'react-icons/fa';
+import {
+  FaHome,
+  FaSitemap,
+  FaUsers,
+  FaBook,
+  FaThList,
+  FaUserCog,
+} from 'react-icons/fa';
 import logo from '~/assets/phone-book.png';
+import history from '~/services/history';
 
-import { Container, Content, Profile } from './styles';
+import { MenuContainer } from './styles';
+import { signOut } from '~/store/modules/auth/actions';
 
 export default function Header() {
+  const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
   const currentLocation = window.location.pathname;
 
-  return (
-    <Container>
-      <Content>
-        <nav>
-          <img src={logo} alt="Basix Contact" />
-          <ul>
-            <li>
-              <Link
-                to="/dashboard"
-                className={currentLocation === '/dashboard' ? 'active' : ''}
-              >
-                <FaHome size={12} />
-                Dashboard
-              </Link>
-            </li>
-            {profile.tipo === 3 && (
-              <li>
-                <Link to="/dominios">
-                  <FaSitemap />
-                  Dominíos
-                </Link>
-              </li>
-            )}
-            <li>
-              <Link
-                to="/usuarios"
-                className={
-                  currentLocation.indexOf('/usuarios') === 0 ? 'active' : ''
-                }
-              >
-                <FaUsers />
-                Usuários
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/chamados"
-                className={
-                  currentLocation.indexOf('/chamado') === 0 ? 'active' : ''
-                }
-              >
-                <FaBook />
-                Chamados
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contatos"
-                className={
-                  currentLocation.indexOf('/contato') === 0 ? 'active' : ''
-                }
-              >
-                <FaThList />
-                Contatos
-              </Link>
-            </li>
-          </ul>
-        </nav>
+  function handleSignOut() {
+    dispatch(signOut());
+  }
 
-        <aside>
-          <Profile>
-            <div>
-              <strong>{profile.nome}</strong>
-              <Link to="/profile">Meu Perfil</Link>
-            </div>
-            <img
-              src="https://www.supinfo.com/articles/resources/204368/6265/0.png"
-              alt={profile.nome}
-            />
-          </Profile>
-        </aside>
-      </Content>
-    </Container>
+  return (
+    <MenuContainer>
+      <Menu stackable>
+        <Menu.Item>
+          <img src={logo} alt="Logo Contact" />
+        </Menu.Item>
+
+        <Menu.Item
+          name="Dashboard"
+          active={currentLocation === '/dashboard'}
+          onClick={() => history.push('/dashboard')}
+        >
+          <FaHome size={12} />
+          Dashboard
+        </Menu.Item>
+
+        {profile.tipo === 3 && (
+          <Menu.Item
+            name="Dominíos"
+            active={currentLocation === '/dominios'}
+            onClick={() => history.push('/dominios')}
+          >
+            <FaSitemap />
+            Dominíos
+          </Menu.Item>
+        )}
+
+        <Menu.Item
+          name="Usuários"
+          active={currentLocation.indexOf('/usuarios') === 0}
+          onClick={() => history.push('/usuarios')}
+        >
+          <FaUsers />
+          Usuários
+        </Menu.Item>
+
+        <Menu.Item
+          name="Chamados"
+          active={currentLocation.indexOf('/chamado') === 0}
+          onClick={() => history.push('/chamados')}
+        >
+          <FaBook />
+          Chamados
+        </Menu.Item>
+
+        <Menu.Item
+          name="Contatos"
+          active={currentLocation.indexOf('/contato') === 0}
+          onClick={() => history.push('/contatos')}
+        >
+          <FaThList />
+          Contatos
+        </Menu.Item>
+
+        <Menu.Menu position="right">
+          <Menu.Item
+            name="Contatos"
+            active={currentLocation.indexOf('/profile') === 0}
+            onClick={() => history.push('/profile')}
+          >
+            <FaUserCog />
+            {profile.nome}
+          </Menu.Item>
+          <Menu.Item>
+            <Button color="red" onClick={() => handleSignOut()}>
+              Logout
+            </Button>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+    </MenuContainer>
   );
 }

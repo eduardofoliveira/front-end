@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSucess, signFailure } from './actions';
+import { signInSucess, signInFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -28,8 +28,7 @@ export function* signIn({ payload }) {
     } else {
       toast.error('Falha na autenticação verifique seus dados');
     }
-
-    yield put(signFailure());
+    yield put(signInFailure());
   }
 }
 

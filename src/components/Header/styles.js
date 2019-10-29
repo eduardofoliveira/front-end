@@ -93,3 +93,13 @@ export const Profile = styled.div`
     border-radius: 50%;
   }
 `;
+
+export const MenuContainer = styled.div`
+  padding: 5px;
+
+  a.item {
+    svg {
+      margin-right: 8px;
+    }
+  }
+`;

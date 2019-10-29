@@ -9,14 +9,18 @@ api.interceptors.response.use(
     return response;
   },
   error => {
-    const {
-      response: { status },
-    } = error;
+    const { response } = error;
+    const { status } = response;
 
     if (status === 401) {
-      localStorage.removeItem('persist:basix_contact');
-      window.location.reload();
+      if (response.data.error) {
+        if (response.data.error === 'Token invalid') {
+          localStorage.removeItem('persist:basix_contact');
+          window.location.reload();
+        }
+      }
     }
+    return Promise.reject(error);
   }
 );
 

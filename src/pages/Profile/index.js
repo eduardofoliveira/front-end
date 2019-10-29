@@ -1,31 +1,27 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select } from '@rocketseat/unform';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaSave, FaDoorOpen } from 'react-icons/fa';
+import { Button, Checkbox, Form, Message, Loader } from 'semantic-ui-react';
 
 import api from '~/services/api';
 
-import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
 
-import { Container } from './styles';
+import { FormContainer } from './styles';
 
 const options = [
-  { id: '1', title: 'Comum' },
-  { id: '2', title: 'Admin' },
-  { id: '3', title: 'Super User' },
+  { key: 1, value: 1, text: 'Comum' },
+  { key: 2, value: 2, text: 'Admin' },
+  { key: 3, value: 3, text: 'Super User' },
 ];
 
 const optionsLogin = [
-  { id: '1', title: 'Ativar' },
-  { id: '2', title: 'Desativar' },
+  { key: 1, value: 1, text: 'Ativar' },
+  { key: 2, value: 2, text: 'Desativar' },
 ];
 
 const optionsGravacao = [
-  { id: '1', title: 'Ativar' },
-  { id: '2', title: 'Desativar' },
+  { key: 1, value: 1, text: 'Ativar' },
+  { key: 2, value: 2, text: 'Desativar' },
 ];
 
 export default function Profile() {
@@ -35,6 +31,7 @@ export default function Profile() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [user_basix, setUserBasix] = useState('');
+  const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState();
   const [loginlogout, setLoginlogout] = useState();
   const [gravacao, setGravacao] = useState();
@@ -53,7 +50,7 @@ export default function Profile() {
       const response = await api.get(
         `/users/${profile.id_dominio}/${profile.id}`
       );
-      setAtivo(response.data.ativo);
+      setAtivo(response.data.ativo === 1);
       setNome(response.data.nome);
       setEmail(response.data.email);
       setUserBasix(response.data.user_basix);
@@ -61,10 +58,10 @@ export default function Profile() {
       setLoginlogout(response.data.loginlogout);
       setGravacao(response.data.gravacao);
       setDescricao(response.data.descricao);
-      setAtivoDendron(response.data.ativo_dendron);
+      setAtivoDendron(response.data.ativo_dendron === 1);
       setDendronOperador(response.data.dendron_operador);
       setDendronToken(response.data.dendron_token);
-      setAtivoZendesk(response.data.ativo_zendesk);
+      setAtivoZendesk(response.data.ativo_zendesk === 1);
       setEmailZendesk(response.data.email_zendesk);
       setTokenZendesk(response.data.token_zendesk);
       setSubDominioZendesk(response.data.sub_dominio_zendesk);
@@ -75,170 +72,201 @@ export default function Profile() {
 
   function handleSubmit(data) {
     data = {
-      ...data,
       ativo,
-      ativo_dendron,
-      ativo_zendesk,
+      nome,
+      email,
+      user_basix,
+      senha,
+      tipo,
+      loginlogout,
+      gravacao,
       descricao,
+      ativo_dendron,
+      dendron_operador,
+      dendron_token,
+      ativo_zendesk,
+      email_zendesk,
+      token_zendesk,
+      sub_dominio_zendesk,
     };
 
     dispatch(updateProfileRequest(data));
   }
 
-  function handleSignOut() {
-    dispatch(signOut());
-  }
-
   return (
-    <Container>
-      {loading ? (
-        <div className="carregando">
-          <h1>Carregando...</h1>
-        </div>
-      ) : (
-        <Form onSubmit={handleSubmit}>
-          <label htmlFor="ativo">
-            <input
-              type="checkbox"
-              checked={ativo}
-              onChange={e => setAtivo(e.target.checked)}
-              name="ativo"
-              id="ativo"
-            />{' '}
-            Ativo
-          </label>
+    <FormContainer>
+      {!loading ? (
+        <Form loading={loading} onSubmit={handleSubmit}>
+          <Message>
+            <Form.Field>
+              <Checkbox
+                name="ativo"
+                label="Ativo"
+                defaultChecked={ativo}
+                onChange={() => setAtivo(!ativo)}
+              />
+            </Form.Field>
 
-          <Input
-            name="nome"
-            placeholder="Nome"
-            value={nome}
-            onChange={e => setNome(e.target.value)}
-          />
-          <Input
-            name="email"
-            placeholder="Seu endereço de e-email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <Input
-            name="user_basix"
-            placeholder="Usuário do PBX"
-            value={user_basix}
-            onChange={e => setUserBasix(e.target.value)}
-          />
-          <hr />
-          <Input type="password" name="senha" placeholder="Senha" />
+            <Form.Group widths="equal">
+              <Form.Input
+                name="nome"
+                fluid
+                label="Nome"
+                placeholder="Nome do usuário"
+                value={nome}
+                onChange={e => setNome(e.target.value)}
+              />
+              <Form.Input
+                name="email"
+                fluid
+                label="E-mail"
+                placeholder="E-mail usado para login"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+              <Form.Input
+                name="user_basix"
+                fluid
+                label="Usuário Basix"
+                placeholder="Usuário do PBX Basix"
+                value={user_basix}
+                onChange={e => setUserBasix(e.target.value)}
+              />
+            </Form.Group>
 
-          <hr />
-          <label htmlFor="tipo" id="tech-label">
-            Tipo de usuário
-            <Select
-              id="tipo"
-              name="tipo"
-              options={options}
-              value={tipo}
-              onChange={e => setTipo(e.target.value)}
-              placeholder="Selecione uma opção"
+            <Form.Group widths="equal">
+              <Form.Input
+                name="senha"
+                fluid
+                label="Senha"
+                placeholder="Senha para efetuar login"
+                type="password"
+                value={senha}
+                onChange={e => setSenha(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group widths="equal">
+              <Form.Select
+                fluid
+                name="tipo"
+                label="Tipo de usuário"
+                options={options}
+                placeholder="Selecione uma opção"
+                value={tipo}
+                onChange={(e, v) => setTipo(v.value)}
+              />
+
+              <Form.Select
+                fluid
+                name="loginlogout"
+                label="Login e Logout via Web"
+                options={optionsLogin}
+                placeholder="Selecione uma opção"
+                value={loginlogout}
+                onChange={(e, v) => setLoginlogout(v.value)}
+              />
+
+              <Form.Select
+                fluid
+                name="gravacao"
+                label="Buscar gravação da chamada no log"
+                options={optionsGravacao}
+                placeholder="Selecione uma opção"
+                value={gravacao}
+                onChange={(e, v) => setGravacao(v.value)}
+              />
+            </Form.Group>
+
+            <Form.TextArea
+              name="descricao"
+              label="Detalhes adicionais"
+              placeholder="descrição..."
+              value={descricao}
+              onChange={e => setDescricao(e.target.value)}
             />
-          </label>
 
-          <label htmlFor="loginlogout" id="tech-label">
-            Login e Logout via Web
-            <Select
-              id="loginlogout"
-              name="loginlogout"
-              options={optionsLogin}
-              value={loginlogout}
-              onChange={e => setLoginlogout(e.target.value)}
-              placeholder="Selecione uma opção"
-            />
-          </label>
+            <Message color="green">
+              <Checkbox
+                className="check-integracao"
+                name="ativo_dendron"
+                label="Integração com a Dendron"
+                defaultChecked={ativo_dendron}
+                onChange={() => setAtivoDendron(!ativo_dendron)}
+              />
+              <Form.Group widths="equal">
+                <Form.Input
+                  name="dendron_operador"
+                  fluid
+                  label="Operador Dendron"
+                  placeholder="Senha para efetuar login"
+                  type="text"
+                  value={dendron_operador}
+                  onChange={e => setDendronOperador(e.target.value)}
+                />
 
-          <label htmlFor="gravacao" id="tech-label">
-            Buscar gravação da chamada no log
-            <Select
-              id="gravacao"
-              name="gravacao"
-              options={optionsGravacao}
-              value={gravacao}
-              onChange={e => setGravacao(e.target.value)}
-              placeholder="Selecione uma opção"
-            />
-          </label>
+                <Form.Input
+                  name="dendron_token"
+                  fluid
+                  label="Token Dendron"
+                  placeholder="Senha para efetuar login"
+                  type="text"
+                  value={dendron_token}
+                  onChange={e => setDendronToken(e.target.value)}
+                />
+              </Form.Group>
+            </Message>
 
-          <textarea
-            name="descricao"
-            placeholder="descricao..."
-            value={descricao}
-            onChange={e => setDescricao(e.target.value)}
-          />
+            <Message color="green">
+              <Checkbox
+                name="ativo_zendesk"
+                className="check-integracao"
+                label="Integração com a Zendesk"
+                defaultChecked={ativo_zendesk}
+                onChange={() => setAtivoZendesk(!ativo_zendesk)}
+              />
+              <Form.Group widths="equal">
+                <Form.Input
+                  name="email_zendesk"
+                  fluid
+                  label="Email Zendesk"
+                  placeholder="Senha para efetuar login"
+                  type="text"
+                  value={email_zendesk}
+                  onChange={e => setEmailZendesk(e.target.value)}
+                />
 
-          <hr />
+                <Form.Input
+                  name="token_zendesk"
+                  fluid
+                  label="Zendesk Token"
+                  placeholder="Senha para efetuar login"
+                  type="text"
+                  value={token_zendesk}
+                  onChange={e => setTokenZendesk(e.target.value)}
+                />
 
-          <label htmlFor="ativo_dendron">
-            <input
-              type="checkbox"
-              name="ativo_dendron"
-              id="ativo_dendron"
-              checked={ativo_dendron}
-              onChange={e => setAtivoDendron(e.target.checked)}
-            />{' '}
-            Ativo Dendron
-          </label>
-          <Input
-            name="dendron_operador"
-            placeholder="Dendron Operador"
-            value={dendron_operador}
-            onChange={e => setDendronOperador(e.target.value)}
-          />
-          <Input
-            name="dendron_token"
-            placeholder="Dendron Token"
-            value={dendron_token}
-            onChange={e => setDendronToken(e.target.value)}
-          />
-          <hr />
+                <Form.Input
+                  name="sub_dominio_zendesk"
+                  fluid
+                  label="Sub Dominio"
+                  placeholder="Senha para efetuar login"
+                  type="text"
+                  value={sub_dominio_zendesk}
+                  onChange={e => setSubDominioZendesk(e.target.value)}
+                />
+              </Form.Group>
+            </Message>
 
-          <label htmlFor="ativo_zendesk">
-            <input
-              type="checkbox"
-              name="ativo_zendesk"
-              id="ativo_zendesk"
-              checked={ativo_zendesk}
-              onChange={e => setAtivoZendesk(e.target.checked)}
-            />{' '}
-            Ativo Zendesk
-          </label>
-          <Input
-            name="email_zendesk"
-            placeholder="Email Zendesk"
-            value={email_zendesk}
-            onChange={e => setEmailZendesk(e.target.value)}
-          />
-          <Input
-            name="token_zendesk"
-            placeholder="Zendesk Token"
-            value={token_zendesk}
-            onChange={e => setTokenZendesk(e.target.value)}
-          />
-          <Input
-            name="sub_dominio_zendesk"
-            placeholder="Sub Dominio"
-            value={sub_dominio_zendesk}
-            onChange={e => setSubDominioZendesk(e.target.value)}
-          />
-          <hr />
-
-          <button type="submit">
-            <FaSave /> Atualizar perfil
-          </button>
+            <Button primary fluid type="submit">
+              Alterar
+            </Button>
+          </Message>
         </Form>
+      ) : (
+        <Loader active />
       )}
-      {!loading && (
-        <button type="button" onClick={handleSignOut}>
-          <FaDoorOpen /> Sair do Basix Contact
-        </button>
-      )}
-    </Container>
+      )
+    </FormContainer>
   );
 }

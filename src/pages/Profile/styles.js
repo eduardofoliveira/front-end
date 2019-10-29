@@ -155,3 +155,16 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const FormContainer = styled.div`
+  margin-top: 50px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+
+    .check-integracao {
+      margin: 10px 0px;
+    }
+  }
+`;

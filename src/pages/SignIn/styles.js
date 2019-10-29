@@ -3,7 +3,14 @@ import { darken } from 'polished';
 
 export const LoginContainer = styled.div`
   width: 100%;
-  max-width: 315px;
+  max-width: 450px;
+
+  div.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+  }
 
   form {
     display: flex;
