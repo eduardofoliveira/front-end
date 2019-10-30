@@ -34,6 +34,14 @@ export const Container = styled.div`
   }
 `;
 
+export const ListContainer = styled.div`
+  margin: 5px;
+
+  .ui.table td {
+    padding: 5px;
+  }
+`;
+
 export const Titulo = styled.h1`
   color: #fff;
   text-align: center;

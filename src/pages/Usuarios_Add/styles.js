@@ -160,3 +160,16 @@ export const Titulo = styled.h1`
   color: #fff;
   text-align: center;
 `;
+
+export const FormContainer = styled.div`
+  margin-top: 50px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+
+    .check-integracao {
+      margin: 10px 0px;
+    }
+  }
+`;
