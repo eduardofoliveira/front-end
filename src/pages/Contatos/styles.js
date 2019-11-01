@@ -1,6 +1,58 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+export const ContainerSemantic = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  div.ui.message:first-child {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-left: 5px;
+    height: max-content;
+
+    div + div {
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 5px;
+    }
+  }
+
+  div.ui.cards {
+    margin: 0px 5px;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    div.card {
+      margin: 0;
+      margin-bottom: 8px;
+    }
+  }
+
+  div.ui.cards::after {
+    display: none;
+    content: '<br>';
+  }
+
+  div.ui.message:nth-child(2n) {
+    padding: 10px;
+    padding-top: 0px;
+    margin-top: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 100%;
+
+    div.card {
+      margin: 5px;
+    }
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
