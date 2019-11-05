@@ -136,21 +136,7 @@ export default function Usuarios_Add() {
 
         return item;
       });
-
-      // const listaDeErros = error.inner.reduce((lista, item) => {
-      //   const itemError = {
-      //     field: item.path,
-      //     message: item.message,
-      //   };
-
-      //   lista.push(itemError);
-      //   return lista;
-      // }, []);
-
-      // setErros(listaDeErros);
     }
-
-    // console.log(inner);
   }
 
   return (

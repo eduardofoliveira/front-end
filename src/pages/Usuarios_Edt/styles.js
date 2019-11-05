@@ -202,3 +202,24 @@ export const Titulo = styled.h1`
   color: #fff;
   text-align: center;
 `;
+
+export const EditContainer = styled.div`
+  margin: 50px 5px 5px 0px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+
+    .check-integracao {
+      margin: 10px 0px;
+    }
+
+    div {
+      div.header {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+`;

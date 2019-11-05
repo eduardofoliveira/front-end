@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
 import { Input, Message, Button } from 'semantic-ui-react';
 
 import { getContactsRequest } from '~/store/modules/contatos/actions';
-import { ContainerSemantic, ListContatos, Contato } from './styles';
+import { ContainerSemantic } from './styles';
 
 export default function Contatos() {
   const dispatch = useDispatch();
@@ -59,8 +58,16 @@ export default function Contatos() {
                   </div>
                   <div className="extra content">
                     <div className="ui two buttons">
-                      <div className="ui basic green button">Editar</div>
-                      <div className="ui basic red button">Remover</div>
+                      <Link
+                        to={`/contato/${contato.id}`}
+                        className="ui basic green button"
+                      >
+                        Editar
+                      </Link>
+
+                      <a href="/contatos" className="ui basic red button">
+                        Remover
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-case-declarations */
 import produce from 'immer';
 
 const INITIAL_STATE = {
@@ -17,8 +19,16 @@ export default function user(state = INITIAL_STATE, action) {
         draft.usuarios = action.payload;
       });
     case '@usuarios/GET_USER_DETAIL_SUCCESS':
+      const useri = action.payload.user;
+
+      Object.keys(action.payload.user).map(item => {
+        if (useri[item] === null) {
+          useri[item] = '';
+        }
+      });
+
       return produce(state, draft => {
-        draft.usuario = action.payload;
+        draft.usuario = useri;
         draft.loading = false;
       });
     case '@usuarios/HIDE_FROM':

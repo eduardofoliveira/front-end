@@ -34,7 +34,7 @@ export function getUserDetailRequest(data) {
 export function getUserDetailSuccess(user) {
   return {
     type: '@usuarios/GET_USER_DETAIL_SUCCESS',
-    payload: user,
+    payload: { user },
   };
 }
 
