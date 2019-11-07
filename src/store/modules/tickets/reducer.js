@@ -8,6 +8,12 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@auth/SIGN_OUT':
+      return produce(state, draft => {
+        draft.visualizacao = 'todos';
+        draft.visualizacaoUser = 'todos';
+        draft.tickets = { count: 0, rows: [] };
+      });
     case '@tickets/CHANGE_TICKETS_TYPE_SUCCESS':
       return produce(state, draft => {
         draft.visualizacao = action.payload.visualizacao;

@@ -7,6 +7,11 @@ const INITIAL_STATE = {
 
 export default function ticket(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@auth/SIGN_OUT':
+      return produce(state, draft => {
+        draft.ticket = {};
+        draft.loading = true;
+      });
     case '@ticket/GET_TICKET_REQUEST':
       return produce(state, draft => {
         draft.ticket = {};

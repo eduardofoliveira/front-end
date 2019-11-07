@@ -22,7 +22,11 @@ export function* updateProfile({ payload }) {
       rest
     );
 
-    const response = yield call(api.put, 'users/1/2', profile);
+    const response = yield call(
+      api.put,
+      `users/${profile.id_dominio}/${profile.id}`,
+      profile
+    );
 
     toast.success('Perfil atualizado com sucesso !');
     yield put(updateProfileSuccess(response.data));

@@ -6,6 +6,10 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@auth/SIGN_OUT':
+      return produce(state, draft => {
+        draft.chamados = [];
+      });
     case '@websocket/RECEIVE_CALL_SUCCESS':
       return produce(state, draft => {
         const displayNone = state.chamados.map(item => {

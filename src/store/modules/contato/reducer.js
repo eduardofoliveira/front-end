@@ -7,6 +7,11 @@ const INITIAL_STATE = {
 
 export default function contact(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@auth/SIGN_OUT':
+      return produce(state, draft => {
+        draft.contact = {};
+        draft.loading = true;
+      });
     case '@contact/GET_CONTACT_REQUEST':
       return produce(state, draft => {
         draft.loading = true;

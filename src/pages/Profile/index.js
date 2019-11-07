@@ -72,6 +72,8 @@ export default function Profile() {
 
   function handleSubmit(data) {
     data = {
+      id: profile.id,
+      id_dominio: profile.id_dominio,
       ativo,
       nome,
       email,

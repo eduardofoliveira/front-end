@@ -15,7 +15,8 @@ api.interceptors.response.use(
     if (status === 401) {
       if (response.data.error) {
         if (response.data.error === 'Token invalid') {
-          localStorage.removeItem('persist:basix_contact');
+          // localStorage.removeItem('persist:basix_contact');
+          localStorage.clear();
           window.location.reload();
         }
       }
@@ -23,5 +24,10 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export function clearAll() {
+  window.location.reload();
+  localStorage.clear();
+}
 
 export default api;

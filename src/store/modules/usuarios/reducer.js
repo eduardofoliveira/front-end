@@ -10,6 +10,12 @@ const INITIAL_STATE = {
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case '@auth/SIGN_OUT':
+      return produce(state, draft => {
+        draft.usuarios = [];
+        draft.usuario = {};
+        draft.loading = true;
+      });
     case '@usuarios/GET_USER_DETAIL_REQUEST':
       return produce(state, draft => {
         draft.loading = true;
