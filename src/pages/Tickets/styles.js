@@ -5,19 +5,13 @@ export const Container = styled.div`
   flex-direction: row;
 
   div.Search_Control {
-    label {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+    -label {
       display: block;
       text-align: center;
-    }
-    input {
-      width: 200px;
-      margin-left: 10px;
-      margin-right: 0px;
-      border: 0;
-      padding: 5px;
-      border-radius: 4px;
-      box-shadow: 3px 3px #999;
-      margin-bottom: 10px;
     }
   }
 `;
@@ -25,6 +19,7 @@ export const Container = styled.div`
 export const Menu = styled.ul`
   width: 200px;
   margin: 10px;
+  padding: 0;
 
   p {
     text-align: center;
@@ -34,22 +29,24 @@ export const Menu = styled.ul`
 
   li {
     margin-bottom: 5px;
+    list-style-type: none;
 
     button {
       width: 100%;
       border: 0;
-      background-color: rgba(0, 0, 0, 0.1);
-      color: #fff;
+      background-color: #e0e1e2;
+      color: rgba(0, 0, 0, 0.6);
       height: 20px;
       box-shadow: 3px 3px #999;
       border-radius: 4px;
+      outline: 0;
     }
   }
 
   li.ativo {
     button {
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #000;
+      background-color: #2185d0;
+      color: #fff;
     }
   }
 

@@ -114,3 +114,23 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const ContainerSemantic = styled.div`
+  padding: 0px 5px;
+  margin-top: 50px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+  }
+
+  .fields_personalizados {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+
+    div.field {
+      width: 50%;
+    }
+  }
+`;

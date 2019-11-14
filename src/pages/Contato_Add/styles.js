@@ -1,6 +1,26 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+export const SemanticContainer = styled.div`
+  padding: 0px 5px;
+  margin-top: 50px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+  }
+
+  .fields_personalizados {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+
+    div.field {
+      width: 50%;
+    }
+  }
+`;
+
 export const Container = styled.div`
   padding: 15px;
 

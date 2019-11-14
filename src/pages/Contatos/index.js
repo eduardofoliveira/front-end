@@ -52,8 +52,11 @@ export default function Contatos() {
                     <div className="meta">{contato.descricao}</div>
                     <div className="description">
                       {contato.fraseologia && (
-                        <div className="body">{contato.fraseologia}</div>
+                        <div className="body">
+                          {contato.fraseologia.substring(0, 35)}
+                        </div>
                       )}
+                      {!contato.fraseologia && '_'}
                     </div>
                   </div>
                   <div className="extra content">

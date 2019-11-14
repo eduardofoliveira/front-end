@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Input } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -111,7 +112,7 @@ export default function Tickets() {
         </Menu>
         <div className="Search_Control">
           <label htmlFor="protocolo">Protocolo</label>
-          <input
+          <Input
             id="protocolo"
             type="text"
             value={proto}
@@ -120,7 +121,7 @@ export default function Tickets() {
         </div>
         <div className="Search_Control">
           <label htmlFor="de">De</label>
-          <input
+          <Input
             id="de"
             type="text"
             value={de}
@@ -129,7 +130,7 @@ export default function Tickets() {
         </div>
         <div className="Search_Control">
           <label htmlFor="para">Para</label>
-          <input
+          <Input
             id="para"
             type="text"
             value={para}

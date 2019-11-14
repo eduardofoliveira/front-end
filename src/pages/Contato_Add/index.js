@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { Form, Message, Button } from 'semantic-ui-react';
 
 import { addContactRequest } from '~/store/modules/contato/actions';
-import { Container } from './styles';
+import { SemanticContainer } from './styles';
 
 export default function Contato({ location }) {
   const dispatch = useDispatch();
@@ -75,9 +76,7 @@ export default function Contato({ location }) {
     });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
+  function handleSubmit() {
     const obj = {
       did,
       descricao,
@@ -89,77 +88,65 @@ export default function Contato({ location }) {
   }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="did">
-          DID:
-          <input
-            id="did"
+    <SemanticContainer>
+      <Form onSubmit={handleSubmit}>
+        <Message>
+          <Form.Input
             name="did"
-            placeholder="DID"
-            type="text"
-            value={did}
+            fluid
+            label="Numero"
+            placeholder="Numero"
+            value={did || ''}
             onChange={e => setDid(e.target.value)}
           />
-        </label>
-
-        <label htmlFor="descricao">
-          Descrição:
-          <input
-            id="descricao"
+          <Form.Input
             name="descricao"
-            placeholder="Descrição"
-            value={descricao}
+            fluid
+            label="Descrição"
+            placeholder="Nome do usuário"
+            value={descricao || ''}
             onChange={e => setDescricao(e.target.value)}
           />
-        </label>
-
-        {contactFields.length > 0 && <hr />}
-
-        <div className="fields">
-          {contactFields.map(field => {
-            return (
-              <div key={field.nome_campo}>
-                <label htmlFor={field.nome_campo}>{field.nome_campo}</label>
-                <input
-                  id={field.nome_campo}
-                  name={field.nome_campo}
-                  placeholder={field.nome_campo}
-                  value={field.conteudo}
-                  onChange={e => updateContactFields(e)}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleDeleteField(field.nome_campo);
-                  }}
-                  className="btn"
-                >
-                  Delete
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <button type="button" className="btn" onClick={() => handleAddField()}>
-          Adicionar Campo
-        </button>
-        <hr />
-
-        <label htmlFor="fraseologia">
-          Fraseologia de atendimento:
-          <textarea
-            id="fraseologia"
+          <Form.Group className="fields_personalizados">
+            {contactFields &&
+              contactFields.map(field => {
+                return (
+                  <Form.Input
+                    key={field.nome_campo}
+                    name={field.nome_campo}
+                    fluid
+                    label={field.nome_campo}
+                    placeholder={field.nome_campo}
+                    value={field.conteudo}
+                    onChange={e => updateContactFields(e)}
+                    action={{
+                      type: 'button',
+                      color: 'red',
+                      icon: 'delete',
+                      onClick: () => {
+                        handleDeleteField(field.nome_campo);
+                      },
+                    }}
+                  />
+                );
+              })}
+          </Form.Group>
+          <Button fluid positive type="button" onClick={() => handleAddField()}>
+            Adicionar campo
+          </Button>
+          <Form.TextArea
             name="fraseologia"
-            placeholder="Fraseologia"
-            value={fraseologia}
+            label="Fraseologia"
+            placeholder="Fraseologia de atendimento"
+            value={fraseologia || ''}
             onChange={e => setFraseologia(e.target.value)}
           />
-        </label>
-
-        <button type="submit">Adicionar</button>
-      </form>
-    </Container>
+          <Button fluid primary type="submit">
+            Adicionar
+          </Button>
+        </Message>
+      </Form>
+    </SemanticContainer>
   );
 }
 

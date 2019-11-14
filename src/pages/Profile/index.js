@@ -268,7 +268,6 @@ export default function Profile() {
       ) : (
         <Loader active />
       )}
-      )
     </FormContainer>
   );
 }
