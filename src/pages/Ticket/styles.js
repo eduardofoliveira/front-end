@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
+export const FormContainer = styled.div`
+  margin-top: 50px;
+
+  form {
+    width: 700px;
+    margin: 0 auto;
+
+    .check-integracao {
+      margin: 10px 0px;
+    }
+  }
+`;
+
 export const Container = styled.div`
   padding: 15px;
 

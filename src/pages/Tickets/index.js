@@ -2,8 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Input } from 'semantic-ui-react';
+import { Input, Segment, List, Image, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import {
   changeTicketsTypeRequest,
@@ -11,9 +12,10 @@ import {
   changeTicketsUserRequest,
 } from '~/store/modules/tickets/actions';
 
-import { Container, Menu, ListTickets, Ticket } from './styles';
+import { Container, Menu, ListSemantic } from './styles';
 
 const statusString = ['', 'aberto', 'fechado', 'pendente'];
+const statusSemantic = ['', 'green', 'black', 'yellow'];
 
 export default function Tickets() {
   const dispatch = useDispatch();
@@ -139,7 +141,65 @@ export default function Tickets() {
         </div>
       </div>
 
-      <ListTickets>
+      <ListSemantic>
+        {tickets.rows.map(ticket => {
+          if (ticket.aberto === 0) {
+            ticket.aberto = 2;
+          }
+
+          return (
+            <div key={ticket.id}>
+              <Link to={`chamado/${ticket.id}`}>
+                <Segment
+                  attached="top"
+                  className={`header block ${statusSemantic[ticket.aberto]}`}
+                >
+                  <div className="header_ticket">
+                    <div>#{ticket.id}</div>
+                    <div>
+                      {moment(ticket.inicio).format('DD-MM-YYYY HH:mm:ss')}
+                    </div>
+                    <div>{`${statusString[ticket.aberto]}`}</div>
+                  </div>
+                </Segment>
+              </Link>
+              <Segment attached="bottom">
+                <List horizontal>
+                  <List.Item>
+                    <Image>
+                      <Icon color="green" name="phone" />
+                    </Image>
+                    <List.Content>
+                      <List.Header>Originador</List.Header>
+                      {ticket.de}
+                    </List.Content>
+                  </List.Item>
+                  <List.Item>
+                    <Image>
+                      <Icon color="orange" name="phone" />
+                    </Image>
+                    <List.Content>
+                      <List.Header>Destino</List.Header>
+                      {ticket.para}
+                    </List.Content>
+                  </List.Item>
+                  <List.Item>
+                    <Image>
+                      <Icon color="green" name="users" />
+                    </Image>
+                    <List.Content>
+                      <List.Header>Atendente</List.Header>
+                      {ticket.usuario.nome}
+                    </List.Content>
+                  </List.Item>
+                </List>
+              </Segment>
+            </div>
+          );
+        })}
+      </ListSemantic>
+
+      {/* <ListTickets>
         {tickets.rows.map(ticket => {
           if (ticket.aberto === 0) {
             ticket.aberto = 2;
@@ -176,94 +236,7 @@ export default function Tickets() {
             </Ticket>
           );
         })}
-
-        {/* <Ticket>
-          <Link to="chamado/451235">
-            <div className="title aberto">
-              <div>
-                #<span>451235</span>
-              </div>
-              <div>Aberto</div>
-            </div>
-          </Link>
-
-          <div className="body">
-            <div className="identify">
-              <div>
-                From:
-                <p>5511961197559</p>
-              </div>
-              <div>
-                To:
-                <p>551135880866</p>
-              </div>
-              <div>
-                Usuário:
-                <p>Eduardo</p>
-              </div>
-            </div>
-            <p>dgkljfdlgkjfdklgfd</p>
-          </div>
-        </Ticket>
-
-        <Ticket>
-          <Link to="chamado/451235">
-            <div className="title fechado">
-              <div>
-                #<span>451235</span>
-              </div>
-              <div>Fechado</div>
-            </div>
-          </Link>
-
-          <div className="body">
-            <div className="identify">
-              <div>
-                From:
-                <p>5511961197559</p>
-              </div>
-              <div>
-                To:
-                <p>551135880866</p>
-              </div>
-              <div>
-                Usuário:
-                <p>Caio</p>
-              </div>
-            </div>
-            <p>dgkljfdlgkjfdklgfd</p>
-          </div>
-        </Ticket>
-
-        <Ticket>
-          <Link to="chamado/451235">
-            <div className="title pendente">
-              <div>
-                #<span>451235</span>
-              </div>
-              <div>Pendente</div>
-            </div>
-          </Link>
-
-          <div className="body">
-            <div className="identify">
-              <div>
-                From:
-                <p>5511961197559</p>
-              </div>
-              <div>
-                To:
-                <p>551135880866</p>
-              </div>
-              <div>
-                Usuário:
-                <p>Renata</p>
-              </div>
-            </div>
-            <p>dgkljfdlgkjfdklgfd</p>
-          </div>
-        </Ticket> */}
-      </ListTickets>
+      </ListTickets> */}
     </Container>
   );
 }

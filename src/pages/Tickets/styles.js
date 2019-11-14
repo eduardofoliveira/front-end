@@ -1,5 +1,25 @@
 import styled from 'styled-components';
 
+export const ListSemantic = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 5px;
+
+  div.ui.bottom.attached.segment {
+    margin-bottom: 5px;
+  }
+
+  div.header_ticket {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  div.header.block:hover {
+    background: rgba(59, 158, 255, 0.2);
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
