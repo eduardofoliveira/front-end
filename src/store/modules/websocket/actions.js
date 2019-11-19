@@ -149,3 +149,33 @@ export function clear() {
     payload: {},
   };
 }
+
+/**
+ * Mudar de aba
+ */
+export function changeTabPosition(position) {
+  return {
+    type: '@websocket/CHANGE_TAB_POSITION',
+    payload: { position },
+  };
+}
+
+/**
+ * Escrever dados da chamada
+ */
+export function writeComment(data) {
+  return {
+    type: '@websocket/WRITE_COMMENT',
+    payload: { data },
+  };
+}
+
+/**
+ * Alterar status do chamado
+ */
+export function changeTicketStatus(data) {
+  return {
+    type: '@websocket/CHANGE_TICKET_STATUS',
+    payload: { data },
+  };
+}

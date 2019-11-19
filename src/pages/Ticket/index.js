@@ -120,14 +120,14 @@ export default function Ticket({ match }) {
                   placeholder="Numero"
                   label="Numero:"
                   value={deDID}
-                  readonly
+                  readOnly
                 />
                 <Form.Input
                   name="de.descricao"
                   placeholder="Descrição"
                   label="Descrição:"
                   value={deDescricao}
-                  readonly
+                  readOnly
                 />
               </Form.Group>
             )}
