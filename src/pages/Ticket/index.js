@@ -46,6 +46,7 @@ export default function Ticket({ match }) {
 
   useEffect(() => {
     setStatus(ticket.aberto);
+    setComentario(ticket.comentario);
 
     if (ticket.de && typeof ticket.de === 'string') {
       setDeDid(ticket.de);
