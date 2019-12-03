@@ -45,6 +45,16 @@ export const Display = styled.div`
       }
     }
   }
+
+  .fields_personalizados {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+
+    div.field {
+      width: 25%;
+    }
+  }
 `;
 
 export const FormContainer = styled.div`

@@ -7,6 +7,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { Link } from 'react-router-dom';
 
 import { Display, FormContainer } from './styles';
+import AccordionCloud from '../Accordion';
 import {
   writeComment,
   changeTicketStatus,
@@ -65,7 +66,9 @@ export default function Form({ chamado }) {
             <>
               <Message>
                 <Message.Header>Originador</Message.Header>
-                <p>{chamado.from}</p>
+                <Link to={`/contato/${chamado.id_from}`}>
+                  <p>{chamado.from}</p>
+                </Link>
               </Message>
               <Message>
                 <Message.Header>Descrição do Originador</Message.Header>
@@ -120,6 +123,31 @@ export default function Form({ chamado }) {
           )}
         </div>
 
+        {chamado.detalhes && chamado.detalhes.length > 0 && (
+          <FormR>
+            <Message>
+              <FormR.Group className="fields_personalizados">
+                {chamado.detalhes.map(field => {
+                  return (
+                    <FormR.Input
+                      key={field.id}
+                      name={field.nome_campo}
+                      label={field.nome_campo}
+                      placeholder={field.nome_campo}
+                      value={field.conteudo}
+                      readOnly
+                    />
+                  );
+                })}
+              </FormR.Group>
+            </Message>
+          </FormR>
+        )}
+
+        {chamado.historico && chamado.historico.length > 0 && (
+          <AccordionCloud historico={chamado.historico} />
+        )}
+
         {chamado.script && (
           <FormR>
             <FormR.TextArea
@@ -132,6 +160,7 @@ export default function Form({ chamado }) {
             />
           </FormR>
         )}
+
         <FormContainer>
           <FormR className="form_chamado" onSubmit={handleSubmit}>
             <FormR.Select
@@ -199,5 +228,7 @@ Form.propTypes = {
     to: PropTypes.string,
     toComment: PropTypes.string,
     script: PropTypes.string,
+    historico: PropTypes.arrayOf(PropTypes.shape()),
+    id_from: PropTypes.number,
   }).isRequired,
 };
