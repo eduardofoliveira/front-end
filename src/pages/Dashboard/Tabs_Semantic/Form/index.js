@@ -230,5 +230,6 @@ Form.propTypes = {
     script: PropTypes.string,
     historico: PropTypes.arrayOf(PropTypes.shape()),
     id_from: PropTypes.number,
+    detalhes: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
 };
