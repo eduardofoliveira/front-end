@@ -1,22 +1,36 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Form, Message, Button } from 'semantic-ui-react';
 
-import { addContactRequest } from '~/store/modules/contato/actions';
+import {
+  addContactRequest,
+  loadCustomParamRequest,
+} from '~/store/modules/contato/actions';
 import { SemanticContainer } from './styles';
 
 export default function Contato({ location }) {
   const dispatch = useDispatch();
   const search = new URLSearchParams(location.search);
+  const profile = useSelector(state => state.user.profile);
+  const contact = useSelector(state => state.contato.contact.ContactFields);
 
   const [did, setDid] = useState(search.get('did') || '');
   const [descricao, setDescricao] = useState('');
   const [fraseologia, setFraseologia] = useState('');
   const [contactFields, setContactFields] = useState([]);
+
+  useEffect(() => {
+    dispatch(loadCustomParamRequest(profile.id_dominio));
+  }, [dispatch, profile.id_dominio]);
+
+  useEffect(() => {
+    setContactFields(contact);
+  }, [contact]);
 
   function updateContactFields(event) {
     setContactFields(

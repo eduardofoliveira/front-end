@@ -11,6 +11,8 @@ import {
   deleteFieldFailure,
   addContactSuccess,
   addContactFailure,
+  loadCustomParamSuccess,
+  loadCustomParamFailure,
 } from './actions';
 import { clear } from '../websocket/actions';
 
@@ -82,6 +84,17 @@ export function* contactAddFailure({ payload }) {
   yield toast.error(error);
 }
 
+export function* loadCustomParams({ payload }) {
+  try {
+    const { id } = payload;
+
+    const { data } = yield call(api.get, `templatefields/${id}`);
+    yield put(loadCustomParamSuccess(data));
+  } catch (error) {
+    yield put(loadCustomParamFailure());
+  }
+}
+
 export default all([
   takeLatest('@contact/GET_CONTACT_REQUEST', getContact),
   takeLatest('@contact/UPDATE_CONTACT_REQUEST', updateContact),
@@ -89,4 +102,5 @@ export default all([
   takeLatest('@contact/ADD_CONTACT_REQUEST', contactAddRequest),
   takeLatest('@contact/ADD_CONTACT_SUCCESS', contactAddSuccess),
   takeLatest('@contact/ADD_CONTACT_FAILURE', contactAddFailure),
+  takeLatest('@contact/LOAD_CUSTOM_PARAM_REQUEST', loadCustomParams),
 ]);

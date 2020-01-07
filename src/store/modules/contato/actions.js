@@ -110,3 +110,24 @@ export function deleteFieldFailure() {
     type: '@contact/DELETE_FIELD_FAILURE',
   };
 }
+
+export function loadCustomParamRequest(id) {
+  return {
+    type: '@contact/LOAD_CUSTOM_PARAM_REQUEST',
+    payload: { id },
+  };
+}
+
+export function loadCustomParamSuccess(payload) {
+  return {
+    type: '@contact/LOAD_CUSTOM_PARAM_SUCCESS',
+    payload: { payload },
+  };
+}
+
+export function loadCustomParamFailure() {
+  return {
+    type: '@contact/LOAD_CUSTOM_PARAM_FAILURE',
+    payload: {},
+  };
+}

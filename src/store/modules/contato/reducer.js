@@ -65,6 +65,27 @@ export default function contact(state = INITIAL_STATE, action) {
         });
         draft.contact.ContactFields = param;
       });
+
+    case '@contact/LOAD_CUSTOM_PARAM_REQUEST':
+      return produce(state, draft => {
+        draft.loading = true;
+      });
+    case '@contact/LOAD_CUSTOM_PARAM_SUCCESS':
+      return produce(state, draft => {
+        const lista = action.payload.payload.map(item => {
+          return {
+            nome_campo: item.nome_campo,
+            conteudo: '',
+          };
+        });
+        draft.contact.ContactFields = lista;
+        draft.loading = false;
+      });
+    case '@contact/LOAD_CUSTOM_PARAM_FAILURE':
+      return produce(state, draft => {
+        draft.loading = false;
+      });
+
     default:
       return state;
   }
