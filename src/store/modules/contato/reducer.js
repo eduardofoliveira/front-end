@@ -74,6 +74,7 @@ export default function contact(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         const lista = action.payload.payload.map(item => {
           return {
+            id: item.id,
             nome_campo: item.nome_campo,
             conteudo: '',
           };
@@ -82,6 +83,40 @@ export default function contact(state = INITIAL_STATE, action) {
         draft.loading = false;
       });
     case '@contact/LOAD_CUSTOM_PARAM_FAILURE':
+      return produce(state, draft => {
+        draft.loading = false;
+      });
+    case '@contact/DELETE_CUSTOM_PARAM_REQUEST':
+      return produce(state, draft => {
+        draft.loading = true;
+      });
+    case '@contact/DELETE_CUSTOM_PARAM_SUCCESS':
+      return produce(state, draft => {
+        draft.loading = false;
+        const lista = state.contact.ContactFields.filter(item => {
+          return item.id !== action.payload.id;
+        });
+        draft.contact.ContactFields = lista;
+      });
+    case '@contact/DELETE_CUSTOM_PARAM_FAILURE':
+      return produce(state, draft => {
+        draft.loading = false;
+      });
+    case '@contact/ADD_CUSTOM_PARAM_TEMPLATE_REQUEST':
+      return produce(state, draft => {
+        draft.loading = true;
+      });
+    case '@contact/ADD_CUSTOM_PARAM_TEMPLATE_SUCCESS':
+      return produce(state, draft => {
+        draft.loading = false;
+        const obj = {
+          id: action.payload.id,
+          nome_campo: action.payload.nome_campo,
+          conteudo: '',
+        };
+        draft.contact.ContactFields = [...draft.contact.ContactFields, obj];
+      });
+    case '@contact/ADD_CUSTOM_PARAM_TEMPLATE_FAILURE':
       return produce(state, draft => {
         draft.loading = false;
       });

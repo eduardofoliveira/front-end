@@ -165,7 +165,7 @@ export default function Ticket({ match }) {
               name="comentario"
               label="Comentarios da ligação"
               placeholder="detalhes da chamada..."
-              value={comentario}
+              value={comentario || ''}
               onChange={e => setComentario(e.target.value)}
             />
             <Button primary fluid type="submit">

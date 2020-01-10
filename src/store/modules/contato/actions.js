@@ -131,3 +131,45 @@ export function loadCustomParamFailure() {
     payload: {},
   };
 }
+
+export function deleteCustomParamRequest(id) {
+  return {
+    type: '@contact/DELETE_CUSTOM_PARAM_REQUEST',
+    payload: { id },
+  };
+}
+
+export function deleteCustomParamSuccess(message, id) {
+  return {
+    type: '@contact/DELETE_CUSTOM_PARAM_SUCCESS',
+    payload: { message, id },
+  };
+}
+
+export function deleteCustomParamFailure(msg) {
+  return {
+    type: '@contact/DELETE_CUSTOM_PARAM_FAILURE',
+    payload: { msg },
+  };
+}
+
+export function addCustomParamTemplateRequest(payload) {
+  return {
+    type: '@contact/ADD_CUSTOM_PARAM_TEMPLATE_REQUEST',
+    payload,
+  };
+}
+
+export function addCustomParamTemplateSuccess(payload) {
+  return {
+    type: '@contact/ADD_CUSTOM_PARAM_TEMPLATE_SUCCESS',
+    payload,
+  };
+}
+
+export function addCustomParamTemplateFailure(payload) {
+  return {
+    type: '@contact/ADD_CUSTOM_PARAM_TEMPLATE_FAILURE',
+    payload,
+  };
+}

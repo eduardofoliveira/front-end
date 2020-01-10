@@ -40,6 +40,11 @@ export default function Contatos() {
             Adicionar
           </Button>
         </Link>
+        <Link to="/contatos/template">
+          <Button fluid color="green">
+            Template
+          </Button>
+        </Link>
       </Message>
       <Message>
         <div className="ui cards">

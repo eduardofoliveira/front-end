@@ -102,4 +102,18 @@ export const MenuContainer = styled.div`
       margin-right: 8px;
     }
   }
+
+  .left_icon {
+    display: flex !important;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  div.red_color i {
+    color: #db2828 !important;
+  }
+
+  div.green_color i {
+    color: #21ba45 !important;
+  }
 `;

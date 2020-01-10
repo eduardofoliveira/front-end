@@ -13,6 +13,7 @@ import Chamado from '../pages/Ticket';
 import Contatos from '../pages/Contatos';
 import Contato from '../pages/Contato';
 import ContatoAdd from '../pages/Contato_Add';
+import TemplateFields from '../pages/TemplateFields';
 
 export default function Routes() {
   return (
@@ -27,6 +28,7 @@ export default function Routes() {
       <Route path="/chamados" component={Chamados} isPrivate />
       <Route path="/chamado/:id" component={Chamado} isPrivate />
       <Route path="/contatos" exact component={Contatos} isPrivate />
+      <Route path="/contatos/template" component={TemplateFields} isPrivate />
       <Route path="/contatos/add" component={ContatoAdd} isPrivate />
       <Route path="/contato/:id" component={Contato} isPrivate />
     </Switch>

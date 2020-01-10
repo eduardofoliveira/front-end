@@ -35,7 +35,7 @@ export const Container = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  margin: 5px;
+  margin: 0px 5px;
 
   .ui.table td {
     padding: 5px;

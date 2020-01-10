@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Button } from 'semantic-ui-react';
+import { Menu, Button, Dropdown } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -79,7 +79,59 @@ export default function Header() {
           Contatos
         </Menu.Item>
 
+        {profile.tipo === 3 && (
+          <Dropdown
+            text="CallCenter"
+            icon="call square"
+            labeled
+            className="link item left_icon"
+          >
+            <Dropdown.Menu>
+              <Dropdown.Item
+                icon="sign-in"
+                className="green_color"
+                text="Logar"
+              />
+              <Dropdown.Item
+                icon="sign-out"
+                className="red_color"
+                text="Deslogar"
+              />
+              <Dropdown.Divider />
+              <Dropdown.Header>Pausas</Dropdown.Header>
+              <Dropdown.Item>
+                <Dropdown
+                  icon="phone"
+                  className="red_color left_icon"
+                  text="Entrar"
+                >
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Almoço</Dropdown.Item>
+                    <Dropdown.Item>Visita à Cliente</Dropdown.Item>
+                    <Dropdown.Item>Intervalo</Dropdown.Item>
+                    <Dropdown.Item>Voice</Dropdown.Item>
+                    <Dropdown.Item>Outras Atividades</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Dropdown.Item>
+              <Dropdown.Item
+                icon="phone"
+                className="green_color"
+                text="Sair da pausa"
+              />
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
+
         <Menu.Menu position="right">
+          {/* <Menu.Item>
+            <Button.Group size="mini">
+              <Button color="olive">Logar</Button>
+              <Button.Or />
+              <Button color="black">Deslogar</Button>
+            </Button.Group>
+          </Menu.Item> */}
+
           <Menu.Item
             name="Contatos"
             active={currentLocation.indexOf('/profile') === 0}
