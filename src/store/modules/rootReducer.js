@@ -8,6 +8,7 @@ import ticket from './ticket/reducer';
 import contatos from './contatos/reducer';
 import contato from './contato/reducer';
 import websocket from './websocket/reducer';
+import callcenter from './callcenter/reducer';
 
 export default combineReducers({
   auth,
@@ -18,4 +19,5 @@ export default combineReducers({
   contatos,
   contato,
   websocket,
+  callcenter,
 });

@@ -8,6 +8,7 @@ import ticket from './ticket/sagas';
 import contatos from './contatos/sagas';
 import contato from './contato/sagas';
 import websocket from './websocket/sagas';
+import callcenter from './callcenter/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -19,5 +20,6 @@ export default function* rootSaga() {
     contatos,
     contato,
     websocket,
+    callcenter,
   ]);
 }

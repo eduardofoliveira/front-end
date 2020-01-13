@@ -6,7 +6,14 @@ export default reducers => {
     {
       key: 'basix_contact',
       storage,
-      whitelist: ['auth', 'user', 'tickets', 'usuarios', 'websocket'],
+      whitelist: [
+        'auth',
+        'user',
+        'tickets',
+        'usuarios',
+        'websocket',
+        'callcenter',
+      ],
     },
     reducers
   );

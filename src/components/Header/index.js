@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Menu, Button, Dropdown } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -15,11 +15,28 @@ import history from '~/services/history';
 
 import { MenuContainer } from './styles';
 import { signOut } from '~/store/modules/auth/actions';
+import {
+  loginRequest,
+  logoutRequest,
+  sairPausaRequest,
+  getBreaksRequest,
+  entrarPausaRequest,
+} from '~/store/modules/callcenter/actions';
 
 export default function Header() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+  const callcenter = useSelector(state => state.callcenter);
   const currentLocation = window.location.pathname;
+
+  useEffect(() => {
+    dispatch(
+      getBreaksRequest({
+        domain: profile.dominio,
+        group: 'Cloud_CallCenter',
+      })
+    );
+  }, [dispatch, profile.dominio]);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -84,18 +101,39 @@ export default function Header() {
             text="CallCenter"
             icon="call square"
             labeled
-            className="link item left_icon"
+            // className="link item left_icon"
+            className={
+              callcenter.login
+                ? 'link item left_icon green_color'
+                : 'link item left_icon red_color'
+            }
           >
             <Dropdown.Menu>
               <Dropdown.Item
                 icon="sign-in"
                 className="green_color"
                 text="Logar"
+                onClick={() => {
+                  dispatch(
+                    loginRequest({
+                      user: profile.user_basix,
+                      domain: profile.dominio,
+                    })
+                  );
+                }}
               />
               <Dropdown.Item
                 icon="sign-out"
                 className="red_color"
                 text="Deslogar"
+                onClick={() => {
+                  dispatch(
+                    logoutRequest({
+                      user: profile.user_basix,
+                      domain: profile.dominio,
+                    })
+                  );
+                }}
               />
               <Dropdown.Divider />
               <Dropdown.Header>Pausas</Dropdown.Header>
@@ -106,11 +144,30 @@ export default function Header() {
                   text="Entrar"
                 >
                   <Dropdown.Menu>
-                    <Dropdown.Item>Almoço</Dropdown.Item>
+                    {callcenter.breaks &&
+                      callcenter.breaks.map(item => {
+                        return (
+                          <Dropdown.Item
+                            key={item.codigo}
+                            onClick={() => {
+                              dispatch(
+                                entrarPausaRequest({
+                                  user: profile.user_basix,
+                                  domain: profile.dominio,
+                                  cod: item.codigo,
+                                })
+                              );
+                            }}
+                          >
+                            {item.nome}
+                          </Dropdown.Item>
+                        );
+                      })}
+                    {/* <Dropdown.Item>Almoço</Dropdown.Item>
                     <Dropdown.Item>Visita à Cliente</Dropdown.Item>
                     <Dropdown.Item>Intervalo</Dropdown.Item>
                     <Dropdown.Item>Voice</Dropdown.Item>
-                    <Dropdown.Item>Outras Atividades</Dropdown.Item>
+                    <Dropdown.Item>Outras Atividades</Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </Dropdown.Item>
@@ -118,6 +175,14 @@ export default function Header() {
                 icon="phone"
                 className="green_color"
                 text="Sair da pausa"
+                onClick={() => {
+                  dispatch(
+                    sairPausaRequest({
+                      user: profile.user_basix,
+                      domain: profile.dominio,
+                    })
+                  );
+                }}
               />
             </Dropdown.Menu>
           </Dropdown>

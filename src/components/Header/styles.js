@@ -109,11 +109,10 @@ export const MenuContainer = styled.div`
     justify-content: flex-end;
   }
 
-  div.red_color i {
-    color: #db2828 !important;
-  }
-
-  div.green_color i {
+  div.green_color > i {
     color: #21ba45 !important;
+  }
+  div.red_color > i {
+    color: #db2828 !important;
   }
 `;
