@@ -33,10 +33,10 @@ export default function Header() {
     dispatch(
       getBreaksRequest({
         domain: profile.dominio,
-        group: 'Cloud_CallCenter',
+        group: profile.callcenter_group,
       })
     );
-  }, [dispatch, profile.dominio]);
+  }, [dispatch, profile.callcenter_group, profile.dominio]);
 
   function handleSignOut() {
     dispatch(signOut());
@@ -96,7 +96,7 @@ export default function Header() {
           Contatos
         </Menu.Item>
 
-        {profile.tipo === 3 && (
+        {profile.loginlogout === 1 && (
           <Dropdown
             text="CallCenter"
             icon="call square"

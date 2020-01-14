@@ -52,6 +52,7 @@ export default function Usuarios_Add() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [user_basix, setUserBasix] = useState('');
+  const [callcenter_group, setCallcenter_group] = useState('');
   const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState();
   const [loginlogout, setLoginlogout] = useState();
@@ -78,6 +79,7 @@ export default function Usuarios_Add() {
       nome,
       email,
       user_basix,
+      callcenter_group,
       senha,
       tipo,
       loginlogout,
@@ -211,6 +213,15 @@ export default function Usuarios_Add() {
                     }
                   : false
               }
+            />
+            <Form.Input
+              name="callcenter_group"
+              fluid
+              label="callcenter_group"
+              placeholder="Grupo CallCenter para buscar pausas"
+              type="text"
+              value={callcenter_group}
+              onChange={e => setCallcenter_group(e.target.value)}
             />
           </Form.Group>
 

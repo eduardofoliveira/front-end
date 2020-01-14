@@ -31,6 +31,7 @@ export default function Profile() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [user_basix, setUserBasix] = useState('');
+  const [callCenterGroup, setCallCenterGroup] = useState('');
   const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState();
   const [loginlogout, setLoginlogout] = useState();
@@ -54,6 +55,7 @@ export default function Profile() {
       setNome(response.data.nome);
       setEmail(response.data.email);
       setUserBasix(response.data.user_basix);
+      setCallCenterGroup(response.data.callcenter_group);
       setTipo(response.data.tipo);
       setLoginlogout(response.data.loginlogout);
       setGravacao(response.data.gravacao);
@@ -78,6 +80,7 @@ export default function Profile() {
       nome,
       email,
       user_basix,
+      callcenter_group: callCenterGroup,
       senha,
       tipo,
       loginlogout,
@@ -145,6 +148,15 @@ export default function Profile() {
                 type="password"
                 value={senha}
                 onChange={e => setSenha(e.target.value)}
+              />
+              <Form.Input
+                name="callcenter_group"
+                fluid
+                label="callcenter_group"
+                placeholder="Grupo CallCenter para buscar pausas"
+                type="text"
+                value={callCenterGroup}
+                onChange={e => setCallCenterGroup(e.target.value)}
               />
             </Form.Group>
 

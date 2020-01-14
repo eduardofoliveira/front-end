@@ -60,6 +60,7 @@ export default function Usuarios_Add({ match }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [user_basix, setUserBasix] = useState('');
+  const [callcenter_group, setCallcenter_group] = useState('');
   const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState();
   const [loginlogout, setLoginlogout] = useState();
@@ -87,6 +88,7 @@ export default function Usuarios_Add({ match }) {
     setNome(usuario.nome);
     setEmail(usuario.email);
     setUserBasix(usuario.user_basix);
+    setCallcenter_group(usuario.callcenter_group);
     setTipo(usuario.tipo);
     setLoginlogout(usuario.loginlogout);
     setGravacao(usuario.gravacao);
@@ -140,6 +142,7 @@ export default function Usuarios_Add({ match }) {
       nome,
       email,
       user_basix,
+      callcenter_group,
       senha,
       tipo,
       loginlogout,
@@ -293,6 +296,15 @@ export default function Usuarios_Add({ match }) {
                       }
                     : false
                 }
+              />
+              <Form.Input
+                name="callcenter_group"
+                fluid
+                label="callcenter_group"
+                placeholder="Grupo CallCenter para buscar pausas"
+                type="text"
+                value={callcenter_group}
+                onChange={e => setCallcenter_group(e.target.value)}
               />
             </Form.Group>
 
