@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { Input, Segment, List, Image, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import {
   changeTicketsTypeRequest,
@@ -22,6 +24,8 @@ export default function Tickets() {
   const [proto, setProto] = useState('');
   const [de, setDe] = useState('');
   const [para, setPara] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const { visualizacao, visualizacaoUser, tickets } = useSelector(
     state => state.tickets
@@ -138,6 +142,42 @@ export default function Tickets() {
             value={para}
             onChange={e => setPara(e.target.value)}
           />
+        </div>
+        <div className="Search_Control">
+          <label htmlFor="start">Inicio</label>
+          <div className="ui input">
+            <DatePicker
+              id="start"
+              showPopperArrow={false}
+              selected={startDate}
+              onChange={date => setStartDate(date)}
+              showTimeSelect
+              timeFormat="HH:mm:ss"
+              timeIntervals={15}
+              timeCaption="time"
+              dateFormat="dd-MM-yyyy HH:mm:ss"
+              className="input_date"
+              withPortal
+            />
+          </div>
+        </div>
+        <div className="Search_Control">
+          <label htmlFor="end">Termino</label>
+          <div className="ui input">
+            <DatePicker
+              id="end"
+              showPopperArrow={false}
+              selected={endDate}
+              onChange={date => setEndDate(date)}
+              showTimeSelect
+              timeFormat="HH:mm:ss"
+              timeIntervals={15}
+              timeCaption="time"
+              dateFormat="dd-MM-yyyy HH:mm:ss"
+              className="input_date"
+              withPortal
+            />
+          </div>
         </div>
       </div>
 
