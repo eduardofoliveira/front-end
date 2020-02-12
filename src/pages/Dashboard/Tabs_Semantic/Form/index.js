@@ -229,7 +229,7 @@ Form.propTypes = {
     toComment: PropTypes.string,
     script: PropTypes.string,
     historico: PropTypes.arrayOf(PropTypes.shape()),
-    id_from: PropTypes.number,
+    id_from: PropTypes.string,
     detalhes: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
 };
