@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input, Segment, List, Image, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import Moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -25,7 +25,9 @@ export default function Tickets() {
   const [de, setDe] = useState('');
   const [para, setPara] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  let final = new Moment(new Date());
+  final = final.add(30, 'days');
+  const [endDate, setEndDate] = useState(final.toDate());
 
   const { visualizacao, visualizacaoUser, tickets } = useSelector(
     state => state.tickets
@@ -33,8 +35,25 @@ export default function Tickets() {
   const { usuarios } = useSelector(state => state.usuarios);
 
   useEffect(() => {
-    dispatch(showTicketsRequest({ proto, de, para }));
-  }, [de, dispatch, para, proto, visualizacao, visualizacaoUser]);
+    dispatch(
+      showTicketsRequest({
+        proto,
+        de,
+        para,
+        inicio: startDate,
+        termino: endDate,
+      })
+    );
+  }, [
+    de,
+    dispatch,
+    endDate,
+    para,
+    proto,
+    startDate,
+    visualizacao,
+    visualizacaoUser,
+  ]);
 
   return (
     <Container>
@@ -197,7 +216,7 @@ export default function Tickets() {
                   <div className="header_ticket">
                     <div>#{ticket.id}</div>
                     <div>
-                      {moment(ticket.inicio).format('DD-MM-YYYY HH:mm:ss')}
+                      {Moment(ticket.inicio).format('DD-MM-YYYY HH:mm:ss')}
                     </div>
                     <div>{`${statusString[ticket.aberto]}`}</div>
                   </div>

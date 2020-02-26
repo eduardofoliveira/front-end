@@ -1,5 +1,6 @@
 import { takeLatest, put, call, all, select } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
+import Moment from 'moment';
 
 import api from '~/services/api';
 import {
@@ -23,6 +24,10 @@ export function* alterarVisualizacao({ payload }) {
 
 export function* listTickets({ payload }) {
   const { proto, de, para } = payload.data;
+  let { inicio, termino } = payload.data;
+
+  inicio = Moment(inicio).format('YYYY-MM-DD HH:mm:ss');
+  termino = Moment(termino).format('YYYY-MM-DD HH:mm:ss');
 
   const { visualizacao, visualizacaoUser } = yield select(
     state => state.tickets
@@ -36,6 +41,8 @@ export function* listTickets({ payload }) {
         proto,
         de,
         para,
+        inicio,
+        termino,
       },
     });
 
