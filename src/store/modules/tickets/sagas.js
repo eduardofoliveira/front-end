@@ -26,8 +26,12 @@ export function* listTickets({ payload }) {
   const { proto, de, para } = payload.data;
   let { inicio, termino } = payload.data;
 
-  inicio = Moment(inicio).format('YYYY-MM-DD HH:mm:ss');
-  termino = Moment(termino).format('YYYY-MM-DD HH:mm:ss');
+  inicio = Moment(inicio)
+    .add(3, 'hours')
+    .format('YYYY-MM-DD HH:mm:ss');
+  termino = Moment(termino)
+    .add(3, 'hours')
+    .format('YYYY-MM-DD HH:mm:ss');
 
   const { visualizacao, visualizacaoUser } = yield select(
     state => state.tickets
