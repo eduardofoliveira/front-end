@@ -24,7 +24,9 @@ export default function Tickets() {
   const [proto, setProto] = useState('');
   const [de, setDe] = useState('');
   const [para, setPara] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  let start = new Moment(new Date());
+  start = new Moment(start.format('YYYY-MM-DD')).toDate();
+  const [startDate, setStartDate] = useState(start);
   let final = new Moment(new Date());
   final = final.add(30, 'days');
   const [endDate, setEndDate] = useState(final.toDate());
