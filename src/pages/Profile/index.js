@@ -36,6 +36,7 @@ export default function Profile() {
   const [tipo, setTipo] = useState();
   const [loginlogout, setLoginlogout] = useState();
   const [gravacao, setGravacao] = useState();
+  const [mostrarHistorico, setMostrarHistorico] = useState();
   const [descricao, setDescricao] = useState('');
   const [ativo_dendron, setAtivoDendron] = useState(false);
   const [dendron_operador, setDendronOperador] = useState('');
@@ -59,6 +60,7 @@ export default function Profile() {
       setTipo(response.data.tipo);
       setLoginlogout(response.data.loginlogout);
       setGravacao(response.data.gravacao);
+      setMostrarHistorico(response.data.historico);
       setDescricao(response.data.descricao);
       setAtivoDendron(response.data.ativo_dendron === 1);
       setDendronOperador(response.data.dendron_operador);
@@ -85,6 +87,7 @@ export default function Profile() {
       tipo,
       loginlogout,
       gravacao,
+      historico: mostrarHistorico,
       descricao,
       ativo_dendron,
       dendron_operador,
@@ -189,6 +192,18 @@ export default function Profile() {
                 placeholder="Selecione uma opção"
                 value={gravacao}
                 onChange={(e, v) => setGravacao(v.value)}
+              />
+            </Form.Group>
+
+            <Form.Group widths="equal">
+              <Form.Select
+                fluid
+                name="historico"
+                label="Mostrar historico do chamado"
+                options={optionsGravacao}
+                placeholder="Selecione uma opção"
+                value={mostrarHistorico}
+                onChange={(e, v) => setMostrarHistorico(v.value)}
               />
             </Form.Group>
 

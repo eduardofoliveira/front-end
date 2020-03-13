@@ -30,13 +30,15 @@ export default function Header() {
   const currentLocation = window.location.pathname;
 
   useEffect(() => {
-    dispatch(
-      getBreaksRequest({
-        domain: profile.dominio,
-        group: profile.callcenter_group,
-      })
-    );
-  }, [dispatch, profile.callcenter_group, profile.dominio]);
+    if (profile && profile.loginlogout === 1) {
+      dispatch(
+        getBreaksRequest({
+          domain: profile.dominio,
+          group: profile.callcenter_group,
+        })
+      );
+    }
+  }, [dispatch, profile, profile.callcenter_group, profile.dominio]);
 
   function handleSignOut() {
     dispatch(signOut());

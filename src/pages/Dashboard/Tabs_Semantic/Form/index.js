@@ -1,6 +1,6 @@
 import React from 'react';
 import { Message, Button, Form as FormR } from 'semantic-ui-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -39,6 +39,7 @@ const options = [
 
 export default function Form({ chamado }) {
   const dispatch = useDispatch();
+  const profile = useSelector(state => state.user.profile);
 
   function handleSubmit() {
     const { id, comentario, aberto } = chamado;
@@ -144,9 +145,12 @@ export default function Form({ chamado }) {
           </FormR>
         )}
 
-        {chamado.historico && chamado.historico.length > 0 && (
-          <AccordionCloud historico={chamado.historico} />
-        )}
+        {profile.historico &&
+          profile.historico === 1 &&
+          chamado.historico &&
+          chamado.historico.length > 0 && (
+            <AccordionCloud historico={chamado.historico} />
+          )}
 
         {chamado.script && (
           <FormR>
@@ -229,7 +233,7 @@ Form.propTypes = {
     toComment: PropTypes.string,
     script: PropTypes.string,
     historico: PropTypes.arrayOf(PropTypes.shape()),
-    id_from: PropTypes.string,
+    id_from: PropTypes.number,
     detalhes: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
 };
